@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movie_popular_card"
+    android:layout_width="wrap_content"
+    android:layout_height="220dp"
+    android:minHeight="200dp"
+    android:layout_marginTop="@dimen/padding_large"
+    android:layout_marginHorizontal="@dimen/padding_large"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="#00000000">
+
+    <LinearLayout
+        android:id="@+id/movie_popular_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/poster_placeholder"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/dummy_poster" />
+
+        <TextView
+            android:id="@+id/rate_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="#000000"
+            android:textColor="#FFFF00"
+            android:textSize="@dimen/text_xtiny"
+            android:textStyle="bold"
+            tools:text="6.7 ★" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
