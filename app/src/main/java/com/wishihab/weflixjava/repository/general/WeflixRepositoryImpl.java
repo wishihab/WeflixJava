@@ -10,6 +10,8 @@ import com.wishihab.weflixjava.apiservice.general.WeflixNetworkServiceFactory;
 import com.wishihab.weflixjava.apiservice.general.WeflixService;
 import com.wishihab.weflixjava.model.general.MoviePopularResponse;
 import com.wishihab.weflixjava.model.general.MoviePopularResult;
+import com.wishihab.weflixjava.model.general.TvPopularResponse;
+import com.wishihab.weflixjava.model.general.TvPopularResult;
 import com.wishihab.weflixjava.repository.core.ListRepositoryListener;
 import com.wishihab.weflixjava.repository.core.RepositoryListener;
 
@@ -56,6 +58,7 @@ public class WeflixRepositoryImpl implements WeflixRepository {
         });
     }
 
+
     @NonNull
     private List<MoviePopularResult> insertMovie(MoviePopularResponse body){
         MoviePopularResponse.Results[] data  = body.getResults();
@@ -79,6 +82,51 @@ public class WeflixRepositoryImpl implements WeflixRepository {
         }
         return list;
     }
+
+    @Override
+    public void getTvPopular(ListRepositoryListener<TvPopularResult> listener) {
+        createNetworkService().getTvPopularList().enqueue(new SimpleCallback<TvPopularResponse>() {
+            @Override
+            protected void onHttpResponseSuccess(Call<TvPopularResponse> call, Response<TvPopularResponse> response) {
+                TvPopularResponse body = response.body();
+                List<TvPopularResult> list = insertTv(body);
+                listener.onSuccess(list);
+            }
+
+            @Override
+            protected void onHttpResponseFailed(Call<TvPopularResponse> call, Response<TvPopularResponse> response) {
+                listener.onError(responseDecoder.getErrorMessage(response));
+            }
+
+            @Override
+            public void onFailure(Call<TvPopularResponse> call, Throwable t) {
+                listener.onError(responseDecoder.getMessageFromRetrofitException(t));
+            }
+        });
+    }
+
+    @NonNull
+    private List<TvPopularResult> insertTv(TvPopularResponse body){
+        TvPopularResponse.Results[] data  = body.getResults();
+        List<TvPopularResult> list = new ArrayList<>();
+        for(TvPopularResponse.Results item : data){
+            TvPopularResult movie = new TvPopularResult();
+            movie.setBackdropPath(item.getBackdropPath());
+            movie.setId(item.getId());
+            movie.setOriginalLanguage(item.getOriginalLanguage());
+            movie.setOriginalName(item.getOriginalName());
+            movie.setOverview(item.getOverview());
+            movie.setPopularity(item.getPopularity());
+            String fullPosterPath = "https://image.tmdb.org/t/p/w500/" + item.getPosterPath();
+            movie.setPosterPath(fullPosterPath);
+            movie.setFirstAirDate(item.getFirstAirDate());
+            movie.setVoteAverage(item.getVoteAverage());
+            movie.setVoteCount(item.getVoteCount());
+            list.add(movie);
+        }
+        return list;
+    }
+
 
     private WeflixService createNetworkService(){
         return WeflixNetworkServiceFactory.createDefaultServiceNoToken(application, WeflixService.class);
