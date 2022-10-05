@@ -1,6 +1,7 @@
 package com.wishihab.weflixjava.repository.general;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -10,6 +11,8 @@ import com.wishihab.weflixjava.apiservice.general.WeflixNetworkServiceFactory;
 import com.wishihab.weflixjava.apiservice.general.WeflixService;
 import com.wishihab.weflixjava.model.general.MoviePopularResponse;
 import com.wishihab.weflixjava.model.general.MoviePopularResult;
+import com.wishihab.weflixjava.model.general.PersonPopularResponse;
+import com.wishihab.weflixjava.model.general.PersonPopularResult;
 import com.wishihab.weflixjava.model.general.TvPopularResponse;
 import com.wishihab.weflixjava.model.general.TvPopularResult;
 import com.wishihab.weflixjava.repository.core.ListRepositoryListener;
@@ -30,11 +33,6 @@ public class WeflixRepositoryImpl implements WeflixRepository {
         this.application = application;
         responseDecoder = new ErrorResponseDecoder(application, Collections.emptyMap());
     }
-
-    private WeflixService createNetworkOnly(String apps){
-        return WeflixNetworkServiceFactory.createDefaultServiceNoToken(application, WeflixService.class);
-    }
-
 
     @Override
     public void getMoviePopular(ListRepositoryListener<MoviePopularResult> listener) {
@@ -105,6 +103,7 @@ public class WeflixRepositoryImpl implements WeflixRepository {
         });
     }
 
+
     @NonNull
     private List<TvPopularResult> insertTv(TvPopularResponse body){
         TvPopularResponse.Results[] data  = body.getResults();
@@ -127,6 +126,48 @@ public class WeflixRepositoryImpl implements WeflixRepository {
         return list;
     }
 
+    @Override
+    public void getPersonPopular(ListRepositoryListener<PersonPopularResult> listener) {
+        createNetworkService().getPersonPopularList().enqueue(new SimpleCallback<PersonPopularResponse>() {
+            @Override
+            protected void onHttpResponseSuccess(Call<PersonPopularResponse> call, Response<PersonPopularResponse> response) {
+                PersonPopularResponse body = response.body();
+                List<PersonPopularResult> list = insertPerson(body);
+                listener.onSuccess(list);
+            }
+
+            @Override
+            protected void onHttpResponseFailed(Call<PersonPopularResponse> call, Response<PersonPopularResponse> response) {
+                Log.e("failed", " failed");
+                listener.onError(responseDecoder.getErrorMessage(response));
+            }
+
+            @Override
+            public void onFailure(Call<PersonPopularResponse> call, Throwable t) {
+                Log.e("failure", " failure" + t.getMessage());
+                listener.onError(responseDecoder.getMessageFromRetrofitException(t));
+            }
+        });
+    }
+
+    @NonNull
+    private List<PersonPopularResult> insertPerson(PersonPopularResponse body){
+        PersonPopularResponse.Results[] data  = body.getResults();
+        List<PersonPopularResult> list = new ArrayList<>();
+        for(PersonPopularResponse.Results item : data){
+            PersonPopularResult person = new PersonPopularResult();
+            person.setAdult(item.getAdult());
+            person.setGender(item.getGender());
+            person.setId(item.getId());
+            person.setKnowForDepartment(item.getKnowForDepartment());
+            person.setName(item.getName());
+            person.setPopularity(item.getPopularity());
+            String fullProfile = "https://image.tmdb.org/t/p/w500/" + item.getProfilePath();
+            person.setProfilePath(fullProfile);
+            list.add(person);
+        }
+        return list;
+    }
 
     private WeflixService createNetworkService(){
         return WeflixNetworkServiceFactory.createDefaultServiceNoToken(application, WeflixService.class);

@@ -9,6 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.wishihab.weflixjava.model.general.MoviePopularResult;
 import com.wishihab.weflixjava.model.general.MoviePopularViewState;
+import com.wishihab.weflixjava.model.general.PersonPopularResult;
+import com.wishihab.weflixjava.model.general.PersonPopularViewState;
 import com.wishihab.weflixjava.model.general.TvPopularResult;
 import com.wishihab.weflixjava.model.general.TvPopularViewState;
 import com.wishihab.weflixjava.repository.core.ListRepositoryListener;
@@ -21,6 +23,7 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
 
     private final MutableLiveData<MoviePopularViewState> movieViewState;
     private final MutableLiveData<TvPopularViewState> tvViewState;
+    private final MutableLiveData<PersonPopularViewState> personViewState;
     private final WeflixRepository weflixRepository;
 
     public WeflixViewModelImpl(Application application){
@@ -32,6 +35,7 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
         this.weflixRepository = weflixRepository;
         movieViewState = new MutableLiveData<>();
         tvViewState = new MutableLiveData<>();
+        personViewState = new MutableLiveData<>();
     }
     @Override
     public LiveData<MoviePopularViewState> getMovieViewState() {
@@ -50,9 +54,18 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
     }
 
     @Override
+    public LiveData<PersonPopularViewState> getPersonViewState() {
+        if(personViewState.getValue() == null){
+            refreshPerson();
+        }
+        return personViewState;
+    }
+
+    @Override
     public void refresh() {
         refreshMovie();
         refreshTv();
+        refreshPerson();
     }
 
     @Override
@@ -85,6 +98,23 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
             @Override
             public void onError(@NonNull String message) {
                 tvViewState.postValue(TvPopularViewState.errorMessage(message));
+            }
+        });
+    }
+
+    @Override
+    public void refreshPerson() {
+        personViewState.postValue(PersonPopularViewState.progress());
+        weflixRepository.getPersonPopular(new ListRepositoryListener<PersonPopularResult>(){
+
+            @Override
+            public void onSuccess(@NonNull List<PersonPopularResult> data) {
+                personViewState.postValue(PersonPopularViewState.requestSuccess(data));
+            }
+
+            @Override
+            public void onError(@NonNull String message) {
+                personViewState.postValue(PersonPopularViewState.errorMessage(message));
             }
         });
     }

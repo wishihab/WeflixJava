@@ -10,8 +10,10 @@ public class PersonPopularResult implements Serializable {
     private Boolean adult;
     @SerializedName("gender")
     private Integer gender;
+    @SerializedName("id")
+    private String id;
     @SerializedName("known_for_department")
-    private Integer knowForDepartment;
+    private String knowForDepartment;
     @SerializedName("name")
     private String name;
     @SerializedName("popularity")
@@ -35,11 +37,19 @@ public class PersonPopularResult implements Serializable {
         this.gender = gender;
     }
 
-    public Integer getKnowForDepartment() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getKnowForDepartment() {
         return knowForDepartment;
     }
 
-    public void setKnowForDepartment(Integer knowForDepartment) {
+    public void setKnowForDepartment(String knowForDepartment) {
         this.knowForDepartment = knowForDepartment;
     }
 

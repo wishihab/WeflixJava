@@ -14,9 +14,11 @@ import android.view.ViewGroup;
 
 import com.wishihab.weflixjava.R;
 import com.wishihab.weflixjava.adapter.MoviePopularListAdapter;
+import com.wishihab.weflixjava.adapter.PersonPopularListAdapter;
 import com.wishihab.weflixjava.adapter.TvPopularListAdapter;
 import com.wishihab.weflixjava.databinding.FragmentWeflixHomeBinding;
 import com.wishihab.weflixjava.model.general.MoviePopularResult;
+import com.wishihab.weflixjava.model.general.PersonPopularResult;
 import com.wishihab.weflixjava.model.general.TvPopularResult;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModel;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModelImpl;
@@ -28,7 +30,7 @@ import java.util.List;
  * Use the {@link WeflixFragmentHome#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeflixFragmentHome extends Fragment implements MovieView, TvView{
+public class WeflixFragmentHome extends Fragment implements MovieView, TvView, PersonView{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,7 +90,7 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView{
 
         binding.moviePopularList.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
         binding.tvPopularList.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
-        binding.peoplePopularList.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
+        binding.personPopularList.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         binding.swipeRefresh.setOnRefreshListener(() -> weflixViewModel.refresh());
 
@@ -96,13 +98,7 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView{
         weflixViewModel = provider.get(WeflixViewModelImpl.class);
         weflixViewModel.getMovieViewState().observe(getViewLifecycleOwner(), this::apply);
         weflixViewModel.getTvViewState().observe(getViewLifecycleOwner(), this::apply);
-    }
-
-    @Override
-    public void showData(List<MoviePopularResult> data) {
-        //data
-        binding.switcher.setDisplayedChild(0);
-        loadMovie(data);
+        weflixViewModel.getPersonViewState().observe(getViewLifecycleOwner(), this::apply);
     }
 
     @Override
@@ -112,11 +108,21 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView{
     }
 
     @Override
-    public void showMessage(String message) {
-        //message
+    public void showProgressTv(boolean progress) {
+        binding.swipeRefresh.setRefreshing(progress);
     }
 
-    private void loadMovie(List<MoviePopularResult> data){
+
+    @Override
+    public void showProgressPerson(boolean progress) {
+        binding.swipeRefresh.setRefreshing(progress);
+    }
+
+
+    @Override
+    public void showData(List<MoviePopularResult> data) {
+        //data
+        binding.switcher.setDisplayedChild(0);
         MoviePopularListAdapter moviePopularListAdapter = new MoviePopularListAdapter(data, ((list, position) -> {
             //do onclick detail here?
         }));
@@ -126,12 +132,24 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView{
     @Override
     public void showDataTv(List<TvPopularResult> data) {
         binding.switcher.setDisplayedChild(0);
-        loadTv(data);
+        TvPopularListAdapter tvPopularListAdapter = new TvPopularListAdapter(data, ((list, position) -> {
+            //do onclick detail here?
+        }));
+        binding.tvPopularList.setAdapter(tvPopularListAdapter);
     }
 
     @Override
-    public void showProgressTv(boolean progress) {
-        binding.swipeRefresh.setRefreshing(progress);
+    public void showDataPerson(List<PersonPopularResult> data) {
+        PersonPopularListAdapter personPopularListAdapter= new PersonPopularListAdapter(data, ((list, position) -> {
+            //do onclick detail here?
+        }));
+        binding.personPopularList.setAdapter(personPopularListAdapter);
+    }
+
+
+    @Override
+    public void showMessage(String message) {
+        //message
     }
 
     @Override
@@ -139,10 +157,8 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView{
 
     }
 
-    private void loadTv(List<TvPopularResult> data){
-        TvPopularListAdapter tvPopularListAdapter = new TvPopularListAdapter(data, ((list, position) -> {
-            //do onclick detail here?
-        }));
-        binding.tvPopularList.setAdapter(tvPopularListAdapter);
+    @Override
+    public void showMessagePerson(String message) {
+
     }
 }
