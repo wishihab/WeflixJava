@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="WeflixTheme" parent="@style/MainTheme">
+        <item name="android:statusBarColor">#00000000</item>
+    </style>
+
+    <!-- ^  resources untuk pencapaian warga, detail misi, profile bisa tambah di atas    ^  -->
+    <!-- =================================================================================== -->
+    <!-- v resources untuk floating button home, share, list lencana bisa tambah di bawah v  -->
+
+    <style name="CustomTextAppearanceTab" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/text_tiny</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TransparentBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/TransparentBottomSheetStyle</item>
+    </style>
+</resources>

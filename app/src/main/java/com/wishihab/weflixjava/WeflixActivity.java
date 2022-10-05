@@ -8,27 +8,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import androidx.core.view.WindowCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.wishihab.weflixjava.databinding.ActivityMainBinding;
+import com.wishihab.weflixjava.view.WeflixFragmentHome;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class WeflixActivity extends AppCompatActivity {
+    private static final String TAG_MAIN = "weflix_tag";
 
     private ActivityMainBinding binding;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,6 +44,28 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        initFragment();
+    }
+
+
+    private void initFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        WeflixFragmentHome mainFragment = (WeflixFragmentHome) manager.findFragmentByTag(TAG_MAIN);
+        if (mainFragment == null) {
+            mainFragment = WeflixFragmentHome.newInstance("","");
+            manager.beginTransaction()
+                    .replace(R.id.content_view, mainFragment, TAG_MAIN)
+                    .commit();
+        }
     }
 
 }
