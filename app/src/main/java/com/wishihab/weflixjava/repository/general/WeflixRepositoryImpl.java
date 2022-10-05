@@ -9,12 +9,13 @@ import com.wishihab.weflixjava.apiservice.core.ErrorResponseDecoder;
 import com.wishihab.weflixjava.apiservice.core.SimpleCallback;
 import com.wishihab.weflixjava.apiservice.general.WeflixNetworkServiceFactory;
 import com.wishihab.weflixjava.apiservice.general.WeflixService;
-import com.wishihab.weflixjava.model.general.MoviePopularResponse;
-import com.wishihab.weflixjava.model.general.MoviePopularResult;
-import com.wishihab.weflixjava.model.general.PersonPopularResponse;
-import com.wishihab.weflixjava.model.general.PersonPopularResult;
-import com.wishihab.weflixjava.model.general.TvPopularResponse;
-import com.wishihab.weflixjava.model.general.TvPopularResult;
+import com.wishihab.weflixjava.model.general.MovieDetailResponse;
+import com.wishihab.weflixjava.model.general.movie.MoviePopularResponse;
+import com.wishihab.weflixjava.model.general.movie.MoviePopularResult;
+import com.wishihab.weflixjava.model.general.person.PersonPopularResponse;
+import com.wishihab.weflixjava.model.general.person.PersonPopularResult;
+import com.wishihab.weflixjava.model.general.tv.TvPopularResponse;
+import com.wishihab.weflixjava.model.general.tv.TvPopularResult;
 import com.wishihab.weflixjava.repository.core.ListRepositoryListener;
 import com.wishihab.weflixjava.repository.core.RepositoryListener;
 
@@ -138,12 +139,31 @@ public class WeflixRepositoryImpl implements WeflixRepository {
 
             @Override
             protected void onHttpResponseFailed(Call<PersonPopularResponse> call, Response<PersonPopularResponse> response) {
-                Log.e("failed", " failed");
                 listener.onError(responseDecoder.getErrorMessage(response));
             }
 
             @Override
             public void onFailure(Call<PersonPopularResponse> call, Throwable t) {
+                listener.onError(responseDecoder.getMessageFromRetrofitException(t));
+            }
+        });
+    }
+
+    @Override
+    public void getMovieDetail(String movieId, RepositoryListener<MovieDetailResponse> listener) {
+        createNetworkService().getDetailMovie(movieId).enqueue(new SimpleCallback<MovieDetailResponse>() {
+            @Override
+            protected void onHttpResponseSuccess(Call<MovieDetailResponse> call, Response<MovieDetailResponse> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            protected void onHttpResponseFailed(Call<MovieDetailResponse> call, Response<MovieDetailResponse> response) {
+                listener.onError(responseDecoder.getErrorMessage(response));
+            }
+
+            @Override
+            public void onFailure(Call<MovieDetailResponse> call, Throwable t) {
                 Log.e("failure", " failure" + t.getMessage());
                 listener.onError(responseDecoder.getMessageFromRetrofitException(t));
             }

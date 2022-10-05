@@ -1,4 +1,4 @@
-package com.wishihab.weflixjava.model.general;
+package com.wishihab.weflixjava.model.general.person;
 
 import com.google.gson.annotations.SerializedName;
 

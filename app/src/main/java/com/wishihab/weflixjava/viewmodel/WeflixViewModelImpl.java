@@ -7,13 +7,16 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.wishihab.weflixjava.model.general.MoviePopularResult;
-import com.wishihab.weflixjava.model.general.MoviePopularViewState;
-import com.wishihab.weflixjava.model.general.PersonPopularResult;
-import com.wishihab.weflixjava.model.general.PersonPopularViewState;
-import com.wishihab.weflixjava.model.general.TvPopularResult;
-import com.wishihab.weflixjava.model.general.TvPopularViewState;
+import com.wishihab.weflixjava.model.general.MovieDetailResponse;
+import com.wishihab.weflixjava.model.general.MovieDetailViewState;
+import com.wishihab.weflixjava.model.general.movie.MoviePopularResult;
+import com.wishihab.weflixjava.model.general.movie.MoviePopularViewState;
+import com.wishihab.weflixjava.model.general.person.PersonPopularResult;
+import com.wishihab.weflixjava.model.general.person.PersonPopularViewState;
+import com.wishihab.weflixjava.model.general.tv.TvPopularResult;
+import com.wishihab.weflixjava.model.general.tv.TvPopularViewState;
 import com.wishihab.weflixjava.repository.core.ListRepositoryListener;
+import com.wishihab.weflixjava.repository.core.RepositoryListener;
 import com.wishihab.weflixjava.repository.general.WeflixRepository;
 import com.wishihab.weflixjava.repository.general.WeflixRepositoryImpl;
 
@@ -24,6 +27,7 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
     private final MutableLiveData<MoviePopularViewState> movieViewState;
     private final MutableLiveData<TvPopularViewState> tvViewState;
     private final MutableLiveData<PersonPopularViewState> personViewState;
+    private final MutableLiveData<MovieDetailViewState> moviedetailViewState;
     private final WeflixRepository weflixRepository;
 
     public WeflixViewModelImpl(Application application){
@@ -36,6 +40,7 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
         movieViewState = new MutableLiveData<>();
         tvViewState = new MutableLiveData<>();
         personViewState = new MutableLiveData<>();
+        moviedetailViewState = new MutableLiveData<>();
     }
     @Override
     public LiveData<MoviePopularViewState> getMovieViewState() {
@@ -118,4 +123,26 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
             }
         });
     }
+
+    @Override
+    public LiveData<MovieDetailViewState> getMovieDetailViewState() {
+        return moviedetailViewState;
+    }
+
+    @Override
+    public void doGetMovieDetail(String movieId) {
+        moviedetailViewState.postValue(MovieDetailViewState.progress());
+        weflixRepository.getMovieDetail(movieId, new RepositoryListener<MovieDetailResponse>() {
+            @Override
+            public void onSuccess(@NonNull MovieDetailResponse data) {
+                moviedetailViewState.postValue(MovieDetailViewState.requestSuccess(data));
+            }
+
+            @Override
+            public void onError(@NonNull String message) {
+                moviedetailViewState.postValue(MovieDetailViewState.errorMessage(message));
+            }
+        });
+    }
+
 }

@@ -2,7 +2,7 @@ package com.wishihab.weflixjava.model.general;
 
 import java.util.List;
 
-public class PersonPopularViewState {
+public class MovieDetailViewState {
 
     /**
      * The enum State.
@@ -14,27 +14,27 @@ public class PersonPopularViewState {
     }
 
     private State state;
-    private List<PersonPopularResult> personPopularResults;
+    private MovieDetailResponse movieDetailResponse;
     private boolean progress;
     private String errorMessage;
 
-    public PersonPopularViewState(State state){
+    public MovieDetailViewState(State state){
         this.state = state;
     }
-    public static PersonPopularViewState progress(){
-        PersonPopularViewState state = new PersonPopularViewState(State.NONE);
+    public static MovieDetailViewState progress(){
+        MovieDetailViewState state = new MovieDetailViewState(State.NONE);
         state.progress = true;
         return state;
     }
 
-    public static PersonPopularViewState requestSuccess(List<PersonPopularResult> data){
-        PersonPopularViewState state = new PersonPopularViewState(State.REQUEST_SUCCESS);
-        state.personPopularResults = data;
+    public static MovieDetailViewState requestSuccess(MovieDetailResponse data){
+        MovieDetailViewState state = new MovieDetailViewState(State.REQUEST_SUCCESS);
+        state.movieDetailResponse = data;
         return state;
     }
 
-    public static PersonPopularViewState errorMessage(String message){
-        PersonPopularViewState state = new PersonPopularViewState(State.ERROR_MESSAGE);
+    public static MovieDetailViewState errorMessage(String message){
+        MovieDetailViewState state = new MovieDetailViewState(State.ERROR_MESSAGE);
         state.errorMessage = message;
         return state;
     }
@@ -47,12 +47,12 @@ public class PersonPopularViewState {
         this.state = state;
     }
 
-    public List<PersonPopularResult> getPersonPopularResult() {
-        return personPopularResults;
+    public MovieDetailResponse getMovieDetailResponse() {
+        return movieDetailResponse;
     }
 
-    public void setPersonPopularResult(List<PersonPopularResult> personPopularResult) {
-        this.personPopularResults = personPopularResult;
+    public void setMovieDetailResponse(MovieDetailResponse movieDetailResponse) {
+        this.movieDetailResponse = movieDetailResponse;
     }
 
     public boolean isProgress() {
@@ -63,7 +63,7 @@ public class PersonPopularViewState {
         this.progress = progress;
     }
 
-    public boolean hasData(){ return personPopularResults != null; }
+    public boolean hasData(){ return movieDetailResponse != null; }
     public boolean hasErrorMessage(){ return errorMessage != null; }
 
     public String getErrorMessage() {

@@ -1,45 +1,31 @@
-package com.wishihab.weflixjava.model.general;
+package com.wishihab.weflixjava.model.general.tv;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class MoviePopularResult implements Serializable {
+public class TvPopularResult implements Serializable {
 
-    @SerializedName("adult")
-    private boolean adult;
     @SerializedName("backdrop_path")
     private String backdropPath;
     @SerializedName("id")
     private String id;
     @SerializedName("original_language")
     private String originalLanguage;
-    @SerializedName("original_title")
-    private String originalTitle;
+    @SerializedName("original_name")
+    private String originalName;
     @SerializedName("overview")
     private String overview;
     @SerializedName("popularity")
     private Double popularity;
     @SerializedName("poster_path")
     private String posterPath;
-    @SerializedName("release_date")
-    private String releaseDate;
-    @SerializedName("title")
-    private String title;
-    @SerializedName("video")
-    private boolean video;
+    @SerializedName("first_air_date")
+    private String firstAirDate;
     @SerializedName("vote_average")
     private Double voteAverage;
     @SerializedName("vote_count")
     private Integer voteCount;
-
-    public boolean isAdult() {
-        return adult;
-    }
-
-    public void setAdult(boolean adult) {
-        this.adult = adult;
-    }
 
     public String getBackdropPath() {
         return backdropPath;
@@ -65,12 +51,12 @@ public class MoviePopularResult implements Serializable {
         this.originalLanguage = originalLanguage;
     }
 
-    public String getOriginalTitle() {
-        return originalTitle;
+    public String getOriginalName() {
+        return originalName;
     }
 
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
     }
 
     public String getOverview() {
@@ -97,28 +83,12 @@ public class MoviePopularResult implements Serializable {
         this.posterPath = posterPath;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getFirstAirDate() {
+        return firstAirDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public boolean isVideo() {
-        return video;
-    }
-
-    public void setVideo(boolean video) {
-        this.video = video;
+    public void setFirstAirDate(String firstAirDate) {
+        this.firstAirDate = firstAirDate;
     }
 
     public Double getVoteAverage() {

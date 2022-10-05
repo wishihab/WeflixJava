@@ -2,9 +2,10 @@ package com.wishihab.weflixjava.viewmodel;
 
 import androidx.lifecycle.LiveData;
 
-import com.wishihab.weflixjava.model.general.MoviePopularViewState;
-import com.wishihab.weflixjava.model.general.PersonPopularViewState;
-import com.wishihab.weflixjava.model.general.TvPopularViewState;
+import com.wishihab.weflixjava.model.general.MovieDetailViewState;
+import com.wishihab.weflixjava.model.general.movie.MoviePopularViewState;
+import com.wishihab.weflixjava.model.general.person.PersonPopularViewState;
+import com.wishihab.weflixjava.model.general.tv.TvPopularViewState;
 
 public interface WeflixViewModel {
     LiveData<MoviePopularViewState> getMovieViewState();
@@ -15,4 +16,8 @@ public interface WeflixViewModel {
     void refreshMovie();
     void refreshTv();
     void refreshPerson();
+
+
+    LiveData<MovieDetailViewState> getMovieDetailViewState();
+    void doGetMovieDetail(String movieId);
 }

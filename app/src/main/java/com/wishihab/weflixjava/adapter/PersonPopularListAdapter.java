@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wishihab.weflixjava.R;
 import com.wishihab.weflixjava.databinding.MoviePopularListItemBinding;
-import com.wishihab.weflixjava.model.general.PersonPopularResult;
-import com.wishihab.weflixjava.model.general.TvPopularResult;
+import com.wishihab.weflixjava.model.general.person.PersonPopularResult;
 import com.wishihab.weflixjava.util.core.ImageUtil;
 
 import java.util.List;

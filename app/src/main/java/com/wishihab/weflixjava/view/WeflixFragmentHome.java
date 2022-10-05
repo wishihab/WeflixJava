@@ -1,10 +1,12 @@
 package com.wishihab.weflixjava.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -13,13 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wishihab.weflixjava.R;
+import com.wishihab.weflixjava.WeflixDetailActivity;
 import com.wishihab.weflixjava.adapter.MoviePopularListAdapter;
 import com.wishihab.weflixjava.adapter.PersonPopularListAdapter;
 import com.wishihab.weflixjava.adapter.TvPopularListAdapter;
 import com.wishihab.weflixjava.databinding.FragmentWeflixHomeBinding;
-import com.wishihab.weflixjava.model.general.MoviePopularResult;
-import com.wishihab.weflixjava.model.general.PersonPopularResult;
-import com.wishihab.weflixjava.model.general.TvPopularResult;
+import com.wishihab.weflixjava.model.general.movie.MoviePopularResult;
+import com.wishihab.weflixjava.model.general.person.PersonPopularResult;
+import com.wishihab.weflixjava.model.general.tv.TvPopularResult;
+import com.wishihab.weflixjava.view.movie.MovieView;
+import com.wishihab.weflixjava.view.person.PersonView;
+import com.wishihab.weflixjava.view.tv.TvView;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModel;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModelImpl;
 
@@ -30,12 +36,13 @@ import java.util.List;
  * Use the {@link WeflixFragmentHome#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeflixFragmentHome extends Fragment implements MovieView, TvView, PersonView{
+public class WeflixFragmentHome extends Fragment implements MovieView, TvView, PersonView {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_MOVIE_ID = "movie_id";
 
     private FragmentWeflixHomeBinding binding;
     private WeflixViewModel weflixViewModel;
@@ -123,8 +130,9 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
     public void showData(List<MoviePopularResult> data) {
         //data
         binding.switcher.setDisplayedChild(0);
+        binding.movieHandler.setVisibility(View.GONE);
         MoviePopularListAdapter moviePopularListAdapter = new MoviePopularListAdapter(data, ((list, position) -> {
-            //do onclick detail here?
+            initActivityDetail(list.getId());
         }));
         binding.moviePopularList.setAdapter(moviePopularListAdapter);
     }
@@ -132,6 +140,7 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
     @Override
     public void showDataTv(List<TvPopularResult> data) {
         binding.switcher.setDisplayedChild(0);
+        binding.tvHandler.setVisibility(View.GONE);
         TvPopularListAdapter tvPopularListAdapter = new TvPopularListAdapter(data, ((list, position) -> {
             //do onclick detail here?
         }));
@@ -140,6 +149,8 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
 
     @Override
     public void showDataPerson(List<PersonPopularResult> data) {
+        binding.switcher.setDisplayedChild(0);
+        binding.personHandler.setVisibility(View.GONE);
         PersonPopularListAdapter personPopularListAdapter= new PersonPopularListAdapter(data, ((list, position) -> {
             //do onclick detail here?
         }));
@@ -149,16 +160,26 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
 
     @Override
     public void showMessage(String message) {
+        binding.switcher.setDisplayedChild(0);
+        binding.movieHandler.setVisibility(View.VISIBLE);
         //message
     }
 
     @Override
     public void showMessageTv(String message) {
-
+        binding.switcher.setDisplayedChild(0);
+        binding.tvHandler.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showMessagePerson(String message) {
+        binding.switcher.setDisplayedChild(0);
+        binding.personHandler.setVisibility(View.VISIBLE);
+    }
 
+    private void initActivityDetail(String movieId) {
+        Intent intent = WeflixDetailActivity.newIntent(requireActivity());
+        intent.putExtra(ARG_MOVIE_ID, movieId);
+        startActivity(intent);
     }
 }

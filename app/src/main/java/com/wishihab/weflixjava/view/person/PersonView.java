@@ -1,9 +1,7 @@
-package com.wishihab.weflixjava.view;
+package com.wishihab.weflixjava.view.person;
 
-import com.wishihab.weflixjava.model.general.PersonPopularResult;
-import com.wishihab.weflixjava.model.general.PersonPopularViewState;
-import com.wishihab.weflixjava.model.general.TvPopularResult;
-import com.wishihab.weflixjava.model.general.TvPopularViewState;
+import com.wishihab.weflixjava.model.general.person.PersonPopularResult;
+import com.wishihab.weflixjava.model.general.person.PersonPopularViewState;
 
 import java.util.List;
 

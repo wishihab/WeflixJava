@@ -1,4 +1,4 @@
-package com.wishihab.weflixjava.model.general;
+package com.wishihab.weflixjava.model.general.tv;
 
 import java.util.List;
 

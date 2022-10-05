@@ -1,7 +1,7 @@
-package com.wishihab.weflixjava.view;
+package com.wishihab.weflixjava.view.movie;
 
-import com.wishihab.weflixjava.model.general.MoviePopularResult;
-import com.wishihab.weflixjava.model.general.MoviePopularViewState;
+import com.wishihab.weflixjava.model.general.movie.MoviePopularResult;
+import com.wishihab.weflixjava.model.general.movie.MoviePopularViewState;
 
 import java.util.List;
 

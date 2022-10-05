@@ -67,7 +67,7 @@
 
                     <ImageView
                         android:id="@+id/ic_header_logo"
-                        android:layout_width="153dp"
+                        android:layout_width="120dp"
                         android:layout_height="184dp"
                         android:layout_marginTop="-48dp"
                         android:layout_marginEnd="16dp"
@@ -112,13 +112,24 @@
                             android:textSize="@dimen/text_xtiny"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
+                        <TextView
+                            android:id="@+id/movie_handler"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_large"
+                            android:text="Terjadi kesalahan, silahkan coba beberapa saat lagi"
+                            android:textColor="#73000000"
+                            android:textSize="@dimen/text_xtiny"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/movie_title_view"/>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/movie_popular_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/padding_medium"
-                            app:layout_constraintTop_toBottomOf="@+id/movie_title_view">
+                            app:layout_constraintTop_toBottomOf="@+id/movie_handler">
 
                         </androidx.recyclerview.widget.RecyclerView>
 
@@ -156,13 +167,24 @@
                             android:textSize="@dimen/text_xtiny"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
+                        <TextView
+                            android:id="@+id/tv_handler"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_large"
+                            android:text="Terjadi kesalahan, silahkan coba beberapa saat lagi"
+                            android:textColor="#73000000"
+                            android:textSize="@dimen/text_xtiny"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title_view"/>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/tv_popular_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/padding_medium"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_title_view">
+                            app:layout_constraintTop_toBottomOf="@+id/tv_handler">
 
                         </androidx.recyclerview.widget.RecyclerView>
 
@@ -201,12 +223,25 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
 
+
+                        <TextView
+                            android:id="@+id/person_handler"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_large"
+                            android:text="Terjadi kesalahan, silahkan coba beberapa saat lagi"
+                            android:textColor="#73000000"
+                            android:textSize="@dimen/text_xtiny"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/person_title_view"/>
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/person_popular_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/padding_medium"
-                            app:layout_constraintTop_toBottomOf="@+id/person_title_view">
+                            app:layout_constraintTop_toBottomOf="@+id/person_handler">
 
                         </androidx.recyclerview.widget.RecyclerView>
 

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wePrimary">
+
+    <ViewSwitcher
+        android:id="@+id/switcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/header_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/header_bg_1"
+                        android:layout_width="0dp"
+                        android:layout_height="273dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/img_detail_header_bg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/toolbar_icon_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="?android:actionBarSize"
+                        android:layout_marginTop="@dimen/padding_xlarge"
+                        android:background="#00000000"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/up_button"
+                            android:layout_width="?android:actionBarSize"
+                            android:layout_height="?android:actionBarSize"
+                            android:layout_gravity="center_vertical"
+                            android:background="?selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:padding="18dp"
+                            android:scaleType="fitXY"
+                            app:srcCompat="@drawable/ic_action_up"
+                            app:tint="#FFFFFF" />
+
+                        <TextView
+                            android:id="@+id/movie_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text="JUDUL MOVIE"
+                            android:textAllCaps="true"
+                            android:textColor="@color/weOnSecondary"
+                            android:textSize="@dimen/text_standard" />
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:id="@+id/movie_backdrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="90dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/dummy_poster"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/weflix_detail_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:layout_marginBottom="@dimen/padding_large">
+
+                    <LinearLayout
+                        android:weightSum="3"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:text="RELEASE DATE"
+                                android:gravity="center"
+                                android:textColor="@color/weOnSecondary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/release_date_view"
+                                android:gravity="center"
+                                android:textColor="@color/weOnSecondary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="2009-12-15"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="GENRES"
+                                android:gravity="center"
+                                android:textColor="@color/weOnSecondary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/genre_view"
+                                android:gravity="center"
+                                android:textColor="@color/weOnSecondary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="Horor, Action"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:text="RATING"
+                                android:gravity="center"
+                                android:textColor="@color/weOnSecondary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/rating_view"
+                                android:gravity="center"
+                                android:textColor="#FFFF00"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="9 ★"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:text="Overview"
+                        android:layout_marginTop="@dimen/padding_large"
+                        android:textColor="@color/weOnSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:id="@+id/overview_view"
+                        android:textColor="@color/weOnSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:text="User review"
+                        android:layout_marginTop="@dimen/padding_large"
+                        android:textColor="@color/weOnSecondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/user_review_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_medium"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"/>
+
+    </ViewSwitcher>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
