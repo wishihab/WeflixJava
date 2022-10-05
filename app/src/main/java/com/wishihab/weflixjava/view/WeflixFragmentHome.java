@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -12,14 +13,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wishihab.weflixjava.R;
+import com.wishihab.weflixjava.adapter.MoviePopularListAdapter;
 import com.wishihab.weflixjava.databinding.FragmentWeflixHomeBinding;
+import com.wishihab.weflixjava.model.general.MoviePopularResult;
+import com.wishihab.weflixjava.viewmodel.WeflixViewModel;
+import com.wishihab.weflixjava.viewmodel.WeflixViewModelImpl;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link WeflixFragmentHome#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeflixFragmentHome extends Fragment {
+public class WeflixFragmentHome extends Fragment implements MovieView{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +34,7 @@ public class WeflixFragmentHome extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private FragmentWeflixHomeBinding binding;
+    private WeflixViewModel weflixViewModel;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -80,7 +88,38 @@ public class WeflixFragmentHome extends Fragment {
         binding.tvPopularList.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
         binding.peoplePopularList.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false));
 
+        binding.swipeRefresh.setOnRefreshListener(() -> weflixViewModel.refreshMovie());
 
+        ViewModelProvider provider = new ViewModelProvider(this);
+        weflixViewModel = provider.get(WeflixViewModelImpl.class);
+        weflixViewModel.getMovieViewState().observe(getViewLifecycleOwner(), this::apply);
+    }
+
+    @Override
+    public void showData(List<MoviePopularResult> data) {
+        //data
+        binding.switcher.setDisplayedChild(0);
+        loadMovie(data);
+
+    }
+
+    @Override
+    public void showProgress(boolean progress) {
+        //progress
+        binding.swipeRefresh.setRefreshing(progress);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        //message
+    }
+
+    private void loadMovie(List<MoviePopularResult> data){
+        MoviePopularListAdapter moviePopularListAdapter = new MoviePopularListAdapter(data, this::showDetail);
+        binding.moviePopularList.setAdapter(moviePopularListAdapter);
+    }
+
+    private void showDetail(MoviePopularResult moviePopularResult, int i) {
 
     }
 }

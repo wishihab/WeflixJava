@@ -20,6 +20,8 @@ public class MoviePopularResult implements Serializable {
     private String overview;
     @SerializedName("popularity")
     private Double popularity;
+    @SerializedName("poster_path")
+    private String posterPath;
     @SerializedName("release_date")
     private String releaseDate;
     @SerializedName("title")
@@ -85,6 +87,14 @@ public class MoviePopularResult implements Serializable {
 
     public void setPopularity(Double popularity) {
         this.popularity = popularity;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 
     public String getReleaseDate() {

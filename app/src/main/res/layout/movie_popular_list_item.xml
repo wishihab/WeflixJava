@@ -7,7 +7,7 @@
     android:layout_height="220dp"
     android:minHeight="200dp"
     android:layout_marginTop="@dimen/padding_large"
-    android:layout_marginHorizontal="@dimen/padding_large"
+    android:layout_marginHorizontal="5dp"
     app:cardElevation="0dp"
     app:cardBackgroundColor="#00000000">
 
