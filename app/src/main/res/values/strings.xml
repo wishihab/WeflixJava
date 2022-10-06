@@ -12,7 +12,19 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- String moved here -->
+    <string name="tab_more_name">More</string>
+    <string name="tab_movie_name">Movies</string>
+    <string name="tab_tv_name">TV</string>
+    <string name="tab_person_name">Person</string>
 
+    <string name="place_holder_movie_name">JUDUL MOVIE</string>
+    <string name="release_date_text">RELEASE DATE</string>
+    <string name="genre_text">GENRES</string>
+    <string name="rating_text">RATING</string>
+    <string name="overview_text">Overview</string>
+    <string name="user_review_text">User review</string>
     <string name="netflix_tag_line">Stories move us.\nThey make us feel more emotion, see new perspectives,\nand bring us closer to each other.</string>
     <string name="title_activity_youtube_player">YoutubePlayerActivity</string>
+    <string name="error_message">Terjadi kesalahan, silahkan coba beberapa saat lagi</string>
 </resources>

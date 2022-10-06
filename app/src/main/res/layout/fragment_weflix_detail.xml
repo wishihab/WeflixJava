@@ -68,7 +68,7 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:text="JUDUL MOVIE"
+                            android:text="@string/place_holder_movie_name"
                             android:textAllCaps="true"
                             android:textColor="@color/weOnSecondary"
                             android:textSize="@dimen/text_standard" />
@@ -132,7 +132,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
-                                android:text="RELEASE DATE"
+                                android:text="@string/release_date_text"
                                 android:gravity="center"
                                 android:textColor="@color/weOnSecondary"
                                 android:layout_width="match_parent"
@@ -153,7 +153,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content">
                             <TextView
-                                android:text="GENRES"
+                                android:text="@string/genre_text"
                                 android:gravity="center"
                                 android:textColor="@color/weOnSecondary"
                                 android:layout_width="match_parent"
@@ -175,7 +175,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
-                                android:text="RATING"
+                                android:text="@string/rating_text"
                                 android:gravity="center"
                                 android:textColor="@color/weOnSecondary"
                                 android:layout_width="match_parent"
@@ -192,7 +192,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:text="Overview"
+                        android:text="@string/overview_text"
                         android:layout_marginTop="@dimen/padding_large"
                         android:textColor="@color/weOnSecondary"
                         android:layout_width="match_parent"
@@ -205,7 +205,7 @@
                         android:layout_height="match_parent"/>
 
                     <TextView
-                        android:text="User review"
+                        android:text="@string/user_review_text"
                         android:layout_marginTop="@dimen/padding_large"
                         android:textColor="@color/weOnSecondary"
                         android:layout_width="match_parent"

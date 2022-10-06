@@ -1,4 +1,4 @@
-package com.wishihab.weflixjava.adapter;
+package com.wishihab.weflixjava.adapter.core;
 
 
 public interface AdapterListener<T> {

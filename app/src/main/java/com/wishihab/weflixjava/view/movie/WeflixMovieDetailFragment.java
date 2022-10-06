@@ -1,4 +1,4 @@
-package com.wishihab.weflixjava.view;
+package com.wishihab.weflixjava.view.movie;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,14 +17,12 @@ import android.webkit.WebView;
 
 import com.wishihab.weflixjava.R;
 import com.wishihab.weflixjava.YoutubePlayerActivity;
-import com.wishihab.weflixjava.adapter.MovieReviewListAdapter;
+import com.wishihab.weflixjava.adapter.general.MovieReviewListAdapter;
 import com.wishihab.weflixjava.databinding.FragmentWeflixDetailBinding;
 import com.wishihab.weflixjava.model.general.YoutubeQueryResult;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewResult;
 import com.wishihab.weflixjava.model.general.movie.detail.MovieDetailResponse;
 import com.wishihab.weflixjava.util.core.ImageUtil;
-import com.wishihab.weflixjava.view.movie.MovieDetailView;
-import com.wishihab.weflixjava.view.movie.MovieReviewView;
 import com.wishihab.weflixjava.view.youtube.YoutubeModuleFragment;
 import com.wishihab.weflixjava.view.youtube.YoutubeQueryView;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModel;

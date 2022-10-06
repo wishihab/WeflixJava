@@ -14,9 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wishihab.weflixjava.WeflixDetailActivity;
-import com.wishihab.weflixjava.adapter.MoviePopularListAdapter;
-import com.wishihab.weflixjava.adapter.PersonPopularListAdapter;
-import com.wishihab.weflixjava.adapter.TvPopularListAdapter;
+import com.wishihab.weflixjava.adapter.general.MoviePopularListAdapter;
+import com.wishihab.weflixjava.adapter.general.PersonPopularListAdapter;
+import com.wishihab.weflixjava.adapter.general.TvPopularListAdapter;
 import com.wishihab.weflixjava.databinding.FragmentWeflixHomeBinding;
 import com.wishihab.weflixjava.model.general.movie.MoviePopularResult;
 import com.wishihab.weflixjava.model.general.person.PersonPopularResult;

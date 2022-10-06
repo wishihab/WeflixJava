@@ -1,4 +1,4 @@
-package com.wishihab.weflixjava.adapter;
+package com.wishihab.weflixjava.adapter.general;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.wishihab.weflixjava.adapter.core.AdapterListener;
 import com.wishihab.weflixjava.databinding.MovieReviewListItemBinding;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewResult;
 

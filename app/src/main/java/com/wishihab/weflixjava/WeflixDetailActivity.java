@@ -11,7 +11,7 @@ import androidx.core.view.WindowCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.wishihab.weflixjava.databinding.ActivityWeflixDetailBinding;
-import com.wishihab.weflixjava.view.WeflixMovieDetailFragment;
+import com.wishihab.weflixjava.view.movie.WeflixMovieDetailFragment;
 import com.wishihab.weflixjava.view.youtube.YoutubeModuleFragment;
 
 public class WeflixDetailActivity extends AppCompatActivity implements YoutubeModuleFragment.Listener {
