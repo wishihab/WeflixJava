@@ -9,6 +9,8 @@ import com.wishihab.weflixjava.apiservice.core.ErrorResponseDecoder;
 import com.wishihab.weflixjava.apiservice.core.SimpleCallback;
 import com.wishihab.weflixjava.apiservice.general.WeflixNetworkServiceFactory;
 import com.wishihab.weflixjava.apiservice.general.WeflixService;
+import com.wishihab.weflixjava.model.general.YoutubeQueryResponse;
+import com.wishihab.weflixjava.model.general.YoutubeQueryResult;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewResponse;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewResult;
 import com.wishihab.weflixjava.model.general.movie.detail.MovieDetailResponse;
@@ -151,6 +153,7 @@ public class WeflixRepositoryImpl implements WeflixRepository {
         });
     }
 
+
     @NonNull
     private List<PersonPopularResult> insertPerson(PersonPopularResponse body){
         PersonPopularResponse.Results[] data  = body.getResults();
@@ -166,6 +169,42 @@ public class WeflixRepositoryImpl implements WeflixRepository {
             String fullProfile = "https://image.tmdb.org/t/p/w500/" + item.getProfilePath();
             person.setProfilePath(fullProfile);
             list.add(person);
+        }
+        return list;
+    }
+
+    @Override
+    public void getYoutubeVideo(String movieTitle, String apiKey, ListRepositoryListener<YoutubeQueryResult> listener) {
+        createNetworkService().getYoutubeVideo(movieTitle, apiKey).enqueue(new SimpleCallback<YoutubeQueryResponse>() {
+            @Override
+            protected void onHttpResponseSuccess(Call<YoutubeQueryResponse> call, Response<YoutubeQueryResponse> response) {
+                YoutubeQueryResponse body = response.body();
+                List<YoutubeQueryResult> list = insertYoutubeId(body);
+                listener.onSuccess(list);
+            }
+
+            @Override
+            protected void onHttpResponseFailed(Call<YoutubeQueryResponse> call, Response<YoutubeQueryResponse> response) {
+                listener.onError(responseDecoder.getErrorMessage(response));
+            }
+
+            @Override
+            public void onFailure(Call<YoutubeQueryResponse> call, Throwable t) {
+                listener.onError(responseDecoder.getMessageFromRetrofitException(t));
+            }
+        });
+    }
+
+
+    @NonNull
+    private List<YoutubeQueryResult> insertYoutubeId(YoutubeQueryResponse body){
+        YoutubeQueryResponse.Items[] data  = body.getItems();
+        List<YoutubeQueryResult> list = new ArrayList<>();
+        for(YoutubeQueryResponse.Items item : data){
+            YoutubeQueryResult youtube = new YoutubeQueryResult();
+            youtube.setKind(item.getId().getKind());
+            youtube.setVideoId(item.getId().getVideoId());
+            list.add(youtube);
         }
         return list;
     }

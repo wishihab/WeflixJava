@@ -43,6 +43,7 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_MOVIE_ID = "movie_id";
+    private static final String ARG_MOVIE_TITLE = "movie_title";
 
     private FragmentWeflixHomeBinding binding;
     private WeflixViewModel weflixViewModel;
@@ -132,7 +133,7 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         binding.switcher.setDisplayedChild(0);
         binding.movieHandler.setVisibility(View.GONE);
         MoviePopularListAdapter moviePopularListAdapter = new MoviePopularListAdapter(data, ((list, position) -> {
-            initActivityDetail(list.getId());
+            initActivityDetail(list.getId(), list.getOriginalTitle());
         }));
         binding.moviePopularList.setAdapter(moviePopularListAdapter);
     }
@@ -177,9 +178,10 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         binding.personHandler.setVisibility(View.VISIBLE);
     }
 
-    private void initActivityDetail(String movieId) {
+    private void initActivityDetail(String movieId, String movieTitle) {
         Intent intent = WeflixDetailActivity.newIntent(requireActivity());
         intent.putExtra(ARG_MOVIE_ID, movieId);
+        intent.putExtra(ARG_MOVIE_TITLE, movieTitle);
         startActivity(intent);
     }
 }

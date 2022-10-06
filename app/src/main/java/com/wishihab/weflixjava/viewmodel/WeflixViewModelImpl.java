@@ -7,6 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.wishihab.weflixjava.model.general.YoutubeQueryResult;
+import com.wishihab.weflixjava.model.general.YoutubeQueryViewState;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewResult;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewViewState;
 import com.wishihab.weflixjava.model.general.movie.detail.MovieDetailResponse;
@@ -31,6 +33,7 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
     private final MutableLiveData<PersonPopularViewState> personViewState;
     private final MutableLiveData<MovieDetailViewState> movieDetailViewState;
     private final MutableLiveData<MovieReviewViewState> movieReviewViewState;
+    private final MutableLiveData<YoutubeQueryViewState> youtubeIdViewState;
     private final WeflixRepository weflixRepository;
 
     public WeflixViewModelImpl(Application application){
@@ -45,6 +48,7 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
         personViewState = new MutableLiveData<>();
         movieDetailViewState = new MutableLiveData<>();
         movieReviewViewState = new MutableLiveData<>();
+        youtubeIdViewState = new MutableLiveData<>();
     }
     @Override
     public LiveData<MoviePopularViewState> getMovieViewState() {
@@ -166,6 +170,27 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
             @Override
             public void onError(@NonNull String message) {
                 movieReviewViewState.postValue(MovieReviewViewState.errorMessage(message));
+            }
+        });
+    }
+
+    @Override
+    public LiveData<YoutubeQueryViewState> getYoutubeIdViewState() {
+        return youtubeIdViewState;
+    }
+
+    @Override
+    public void doGetYoutubeId(String movieName, String apiKey) {
+        youtubeIdViewState.postValue(YoutubeQueryViewState.progress());
+        weflixRepository.getYoutubeVideo(movieName, apiKey, new ListRepositoryListener<YoutubeQueryResult>() {
+            @Override
+            public void onSuccess(@NonNull List<YoutubeQueryResult> data) {
+                youtubeIdViewState.postValue(YoutubeQueryViewState.requestSuccess(data));
+            }
+
+            @Override
+            public void onError(@NonNull String message) {
+                youtubeIdViewState.postValue(YoutubeQueryViewState.errorMessage(message));
             }
         });
     }

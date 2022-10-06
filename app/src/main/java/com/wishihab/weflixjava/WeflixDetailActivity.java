@@ -3,6 +3,7 @@ package com.wishihab.weflixjava;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -10,14 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.wishihab.weflixjava.databinding.ActivityMainBinding;
 import com.wishihab.weflixjava.databinding.ActivityWeflixDetailBinding;
 import com.wishihab.weflixjava.view.WeflixFragmentHome;
 import com.wishihab.weflixjava.view.WeflixMovieDetailFragment;
+import com.wishihab.weflixjava.view.YoutubeModuleFragment;
 
-public class WeflixDetailActivity extends AppCompatActivity {
+public class WeflixDetailActivity extends AppCompatActivity implements YoutubeModuleFragment.Listener {
     private static final String TAG_DETAIL = "weflix_movie_detail";
     private static final String ARG_MOVIE_ID = "movie_id";
+    private static final String ARG_MOVIE_TITLE = "movie_title";
 
     private ActivityWeflixDetailBinding binding;
 
@@ -56,19 +60,23 @@ public class WeflixDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        initFragment(intent.getStringExtra(ARG_MOVIE_ID));
+        initFragment(intent.getStringExtra(ARG_MOVIE_ID), intent.getStringExtra(ARG_MOVIE_TITLE));
     }
 
 
-    private void initFragment(String movieId) {
+    private void initFragment(String movieId, String movieTitle) {
         FragmentManager manager = getSupportFragmentManager();
         WeflixMovieDetailFragment weflixMovieDetailFragment = (WeflixMovieDetailFragment) manager.findFragmentByTag(TAG_DETAIL);
         if (weflixMovieDetailFragment == null) {
-            weflixMovieDetailFragment = WeflixMovieDetailFragment.newInstance(movieId,"");
+            weflixMovieDetailFragment = WeflixMovieDetailFragment.newInstance(movieId,movieTitle);
             manager.beginTransaction()
                     .replace(R.id.content_view, weflixMovieDetailFragment, TAG_DETAIL)
                     .commit();
         }
     }
 
+    @Override
+    public void onDismissedCall() {
+        Log.e("dismiseed", " dismiscalled");
+    }
 }

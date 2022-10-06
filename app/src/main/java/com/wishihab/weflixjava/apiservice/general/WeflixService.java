@@ -1,5 +1,6 @@
 package com.wishihab.weflixjava.apiservice.general;
 
+import com.wishihab.weflixjava.model.general.YoutubeQueryResponse;
 import com.wishihab.weflixjava.model.general.movie.detail.MovieDetailResponse;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewResponse;
 import com.wishihab.weflixjava.model.general.movie.MoviePopularResponse;
@@ -9,6 +10,7 @@ import com.wishihab.weflixjava.model.general.tv.TvPopularResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface WeflixService {
 
@@ -29,6 +31,13 @@ public interface WeflixService {
     @GET("https://api.themoviedb.org/3/movie/{movie_id}/reviews?api_key=146f213f7f57825fa9e1e43b7db04884")
     Call<MovieReviewResponse> getMovieReview(
             @Path("movie_id") String movieId
+    );
+
+    //?q={movie_title}&key=AIzaSyBNggAqYJVmKn-p7D_DrlWyX3Rc24fv0uI
+    @GET("https://youtube.googleapis.com/youtube/v3/search")
+    Call<YoutubeQueryResponse> getYoutubeVideo(
+            @Query("q") String movieTitle,
+            @Query("key") String apiKey
     );
 
 

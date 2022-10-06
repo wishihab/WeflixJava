@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -12,11 +13,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import com.wishihab.weflixjava.R;
 import com.wishihab.weflixjava.adapter.MovieReviewListAdapter;
-import com.wishihab.weflixjava.adapter.TvPopularListAdapter;
 import com.wishihab.weflixjava.databinding.FragmentWeflixDetailBinding;
+import com.wishihab.weflixjava.model.general.YoutubeQueryResult;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewResult;
 import com.wishihab.weflixjava.model.general.movie.detail.MovieDetailResponse;
 import com.wishihab.weflixjava.util.core.ImageUtil;
@@ -32,7 +34,7 @@ import java.util.List;
  * Use the {@link WeflixMovieDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeflixMovieDetailFragment extends Fragment implements MovieDetailView, MovieReviewView {
+public class WeflixMovieDetailFragment extends Fragment implements MovieDetailView, MovieReviewView, YoutubeQueryView{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -98,10 +100,16 @@ public class WeflixMovieDetailFragment extends Fragment implements MovieDetailVi
         weflixViewModel = provider.get(WeflixViewModelImpl.class);
         weflixViewModel.getMovieDetailViewState().observe(getViewLifecycleOwner(), this::apply);
         weflixViewModel.getMovieReviewViewState().observe(getViewLifecycleOwner(), this::apply);
+        weflixViewModel.getYoutubeIdViewState().observe(getViewLifecycleOwner(), this::apply);
         weflixViewModel.doGetMovieDetail(mParam1);
         weflixViewModel.doGetMovieReview(mParam1);
+        String nameTrailer = "Trailer " + mParam2;
+        weflixViewModel.doGetYoutubeId(nameTrailer, "AIzaSyBNggAqYJVmKn-p7D_DrlWyX3Rc24fv0uI");
+
     }
 
+
+    //Movie Detail
     @Override
     public void showData(MovieDetailResponse data) {
         binding.switcher.setDisplayedChild(0);
@@ -132,6 +140,8 @@ public class WeflixMovieDetailFragment extends Fragment implements MovieDetailVi
         Log.e("message ", "value " + message);
     }
 
+
+    //Review
     @Override
     public void showDataReview(List<MovieReviewResult> data) {
         binding.switcher.setDisplayedChild(0);
@@ -149,5 +159,46 @@ public class WeflixMovieDetailFragment extends Fragment implements MovieDetailVi
     @Override
     public void showMessageReview(String message) {
         binding.switcher.setDisplayedChild(0);
+    }
+
+
+    //Youtube
+    @Override
+    public void showDataYoutube(List<YoutubeQueryResult> data) {
+        if(data.size() > 0){
+            Log.e("youtueb first id", "ini id : " + data.get(0).getVideoId());
+            //opsi 1 load webview
+            binding.movieBackdrop.setOnClickListener(v->openWebView(data.get(0).getVideoId()));
+            binding.youtubePlayButton.setOnClickListener(v->openWebView(data.get(0).getVideoId()));
+            //opsi 2 load buttonmodule?
+            //binding.youtubePlayButton.setOnClickListener(v-> onYoutubeClicked(data.get(0).getVideoId()));
+
+            //opsi 3 load activity/fragment youtube?
+        }
+    }
+
+    private void openWebView(String youtubeId){
+        WebView youtubeWeb = (WebView) getView().findViewById(R.id.webview_youtube);
+        String fullUrl = "https://www.youtube.com/watch?v=" + youtubeId;
+        youtubeWeb.loadUrl(fullUrl);
+    }
+
+    @Override
+    public void showProgressYoutube(boolean progress) {
+
+    }
+
+    @Override
+    public void showMessageYoutube(String message) {
+
+    }
+
+    private void onYoutubeClicked(String youtubeId){
+        FragmentManager manager = getParentFragmentManager();
+        YoutubeModuleFragment fragment = (YoutubeModuleFragment) manager.findFragmentByTag("youtube_module_tag");
+        if(fragment == null){
+            fragment = YoutubeModuleFragment.newInstance(youtubeId);
+            fragment.show(manager, "youtube_module_tag");
+        }
     }
 }

@@ -4,11 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/weflix_content_background.xml" value="0.17" />
+        <entry key="app/src/main/res/drawable/youtube_module.xml" value="0.17" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/activity_weflix_detail.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.14739583333333334" />
-        <entry key="app/src/main/res/layout/fragment_weflix_detail.xml" value="0.20652173913043478" />
+        <entry key="app/src/main/res/layout/fragment_weflix_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_weflix_home.xml" value="0.20652173913043478" />
+        <entry key="app/src/main/res/layout/fragment_youtube.xml" value="0.20652173913043478" />
+        <entry key="app/src/main/res/layout/fragment_youtube_module.xml" value="0.18429311116536456" />
         <entry key="app/src/main/res/layout/movie_popular_list_item.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/movie_review_list_item.xml" value="0.47513326009114587" />
         <entry key="app/src/main/res/layout/view_empty_state.xml" value="0.14739583333333334" />

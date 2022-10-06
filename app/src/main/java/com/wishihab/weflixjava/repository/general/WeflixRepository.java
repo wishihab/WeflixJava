@@ -1,5 +1,6 @@
 package com.wishihab.weflixjava.repository.general;
 
+import com.wishihab.weflixjava.model.general.YoutubeQueryResult;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewResult;
 import com.wishihab.weflixjava.model.general.movie.detail.MovieDetailResponse;
 import com.wishihab.weflixjava.model.general.movie.MoviePopularResult;
@@ -17,6 +18,7 @@ public interface WeflixRepository {
 
     void getPersonPopular(ListRepositoryListener<PersonPopularResult> listener);
 
+    void getYoutubeVideo(String movieTitle, String apiKey, ListRepositoryListener<YoutubeQueryResult> listener);
 
 
 }

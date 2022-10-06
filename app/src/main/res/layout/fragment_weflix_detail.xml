@@ -89,12 +89,34 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <LinearLayout
+                android:id="@+id/youtube_play_button"
+                android:layout_gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-15dp"
+                android:layout_marginHorizontal="18dp"
+                android:padding="@dimen/padding_large"
+                android:background="@drawable/img_youtube_play"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <WebView
+                    android:id="@+id/webview_youtube"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
+
+            </LinearLayout>
+
+
                 <LinearLayout
                     android:id="@+id/weflix_detail_group"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="16dp"
+                    android:layout_marginTop="@dimen/padding_large"
                     android:layout_marginBottom="@dimen/padding_large">
 
                     <LinearLayout
