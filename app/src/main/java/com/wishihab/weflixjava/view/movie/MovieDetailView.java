@@ -1,11 +1,7 @@
 package com.wishihab.weflixjava.view.movie;
 
-import com.wishihab.weflixjava.model.general.MovieDetailResponse;
-import com.wishihab.weflixjava.model.general.MovieDetailViewState;
-import com.wishihab.weflixjava.model.general.movie.MoviePopularResult;
-import com.wishihab.weflixjava.model.general.movie.MoviePopularViewState;
-
-import java.util.List;
+import com.wishihab.weflixjava.model.general.movie.detail.MovieDetailResponse;
+import com.wishihab.weflixjava.model.general.movie.detail.MovieDetailViewState;
 
 public interface MovieDetailView {
 

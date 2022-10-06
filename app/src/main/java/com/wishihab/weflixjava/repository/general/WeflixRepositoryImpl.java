@@ -9,7 +9,9 @@ import com.wishihab.weflixjava.apiservice.core.ErrorResponseDecoder;
 import com.wishihab.weflixjava.apiservice.core.SimpleCallback;
 import com.wishihab.weflixjava.apiservice.general.WeflixNetworkServiceFactory;
 import com.wishihab.weflixjava.apiservice.general.WeflixService;
-import com.wishihab.weflixjava.model.general.MovieDetailResponse;
+import com.wishihab.weflixjava.model.general.movie.MovieReviewResponse;
+import com.wishihab.weflixjava.model.general.movie.MovieReviewResult;
+import com.wishihab.weflixjava.model.general.movie.detail.MovieDetailResponse;
 import com.wishihab.weflixjava.model.general.movie.MoviePopularResponse;
 import com.wishihab.weflixjava.model.general.movie.MoviePopularResult;
 import com.wishihab.weflixjava.model.general.person.PersonPopularResponse;
@@ -149,6 +151,25 @@ public class WeflixRepositoryImpl implements WeflixRepository {
         });
     }
 
+    @NonNull
+    private List<PersonPopularResult> insertPerson(PersonPopularResponse body){
+        PersonPopularResponse.Results[] data  = body.getResults();
+        List<PersonPopularResult> list = new ArrayList<>();
+        for(PersonPopularResponse.Results item : data){
+            PersonPopularResult person = new PersonPopularResult();
+            person.setAdult(item.getAdult());
+            person.setGender(item.getGender());
+            person.setId(item.getId());
+            person.setKnowForDepartment(item.getKnowForDepartment());
+            person.setName(item.getName());
+            person.setPopularity(item.getPopularity());
+            String fullProfile = "https://image.tmdb.org/t/p/w500/" + item.getProfilePath();
+            person.setProfilePath(fullProfile);
+            list.add(person);
+        }
+        return list;
+    }
+
     @Override
     public void getMovieDetail(String movieId, RepositoryListener<MovieDetailResponse> listener) {
         createNetworkService().getDetailMovie(movieId).enqueue(new SimpleCallback<MovieDetailResponse>() {
@@ -170,20 +191,40 @@ public class WeflixRepositoryImpl implements WeflixRepository {
         });
     }
 
+    @Override
+    public void getMovieReview(String movieId, ListRepositoryListener<MovieReviewResult> listener) {
+        createNetworkService().getMovieReview(movieId).enqueue(new SimpleCallback<MovieReviewResponse>() {
+            @Override
+            protected void onHttpResponseSuccess(Call<MovieReviewResponse> call, Response<MovieReviewResponse> response) {
+                MovieReviewResponse body = response.body();
+                List<MovieReviewResult> list = insertMovieReview(body);
+                listener.onSuccess(list);
+            }
+
+            @Override
+            protected void onHttpResponseFailed(Call<MovieReviewResponse> call, Response<MovieReviewResponse> response) {
+                listener.onError(responseDecoder.getErrorMessage(response));
+            }
+
+            @Override
+            public void onFailure(Call<MovieReviewResponse> call, Throwable t) {
+                listener.onError(responseDecoder.getMessageFromRetrofitException(t));
+            }
+        });
+    }
+
     @NonNull
-    private List<PersonPopularResult> insertPerson(PersonPopularResponse body){
-        PersonPopularResponse.Results[] data  = body.getResults();
-        List<PersonPopularResult> list = new ArrayList<>();
-        for(PersonPopularResponse.Results item : data){
-            PersonPopularResult person = new PersonPopularResult();
-            person.setAdult(item.getAdult());
-            person.setGender(item.getGender());
-            person.setId(item.getId());
-            person.setKnowForDepartment(item.getKnowForDepartment());
-            person.setName(item.getName());
-            person.setPopularity(item.getPopularity());
-            String fullProfile = "https://image.tmdb.org/t/p/w500/" + item.getProfilePath();
-            person.setProfilePath(fullProfile);
+    private List<MovieReviewResult> insertMovieReview(MovieReviewResponse body){
+        MovieReviewResponse.Results[] data  = body.getResults();
+        List<MovieReviewResult> list = new ArrayList<>();
+        for(MovieReviewResponse.Results item : data){
+            MovieReviewResult person = new MovieReviewResult();
+            person.setAuthor(item.getAuthor());
+            person.setName(item.getAuthorDetail().getName());
+            person.setUsername(item.getAuthorDetail().getUserName());
+            person.setAvatarPath(item.getAuthorDetail().getAvatarPath());
+            person.setRating(item.getAuthorDetail().getRating());
+            person.setContent(item.getContent());
             list.add(person);
         }
         return list;

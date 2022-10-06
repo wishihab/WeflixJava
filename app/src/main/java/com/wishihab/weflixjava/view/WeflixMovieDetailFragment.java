@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,19 +14,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wishihab.weflixjava.R;
+import com.wishihab.weflixjava.adapter.MovieReviewListAdapter;
+import com.wishihab.weflixjava.adapter.TvPopularListAdapter;
 import com.wishihab.weflixjava.databinding.FragmentWeflixDetailBinding;
-import com.wishihab.weflixjava.model.general.MovieDetailResponse;
+import com.wishihab.weflixjava.model.general.movie.MovieReviewResult;
+import com.wishihab.weflixjava.model.general.movie.detail.MovieDetailResponse;
 import com.wishihab.weflixjava.util.core.ImageUtil;
 import com.wishihab.weflixjava.view.movie.MovieDetailView;
+import com.wishihab.weflixjava.view.movie.MovieReviewView;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModel;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModelImpl;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link WeflixMovieDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeflixMovieDetailFragment extends Fragment implements MovieDetailView {
+public class WeflixMovieDetailFragment extends Fragment implements MovieDetailView, MovieReviewView {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,11 +92,14 @@ public class WeflixMovieDetailFragment extends Fragment implements MovieDetailVi
         binding.upButton.setOnClickListener(v -> requireActivity().finish());
 
         binding.swipeRefresh.setOnRefreshListener(() -> weflixViewModel.doGetMovieDetail(mParam1));
+        binding.userReviewList.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false));
 
         ViewModelProvider provider = new ViewModelProvider(this);
         weflixViewModel = provider.get(WeflixViewModelImpl.class);
         weflixViewModel.getMovieDetailViewState().observe(getViewLifecycleOwner(), this::apply);
+        weflixViewModel.getMovieReviewViewState().observe(getViewLifecycleOwner(), this::apply);
         weflixViewModel.doGetMovieDetail(mParam1);
+        weflixViewModel.doGetMovieReview(mParam1);
     }
 
     @Override
@@ -102,7 +112,7 @@ public class WeflixMovieDetailFragment extends Fragment implements MovieDetailVi
         StringBuffer sb = new StringBuffer();
 
         for(int i=0; i<data.getGenres().length; i++){
-            sb.append(data.getGenres()[i].getName() + ", ");
+            sb.append(data.getGenres()[i].getName() + " ");
         }
         String allGenre = sb.toString();
         binding.genreView.setText(allGenre);
@@ -120,5 +130,24 @@ public class WeflixMovieDetailFragment extends Fragment implements MovieDetailVi
     public void showMessage(String message) {
         binding.switcher.setDisplayedChild(0);
         Log.e("message ", "value " + message);
+    }
+
+    @Override
+    public void showDataReview(List<MovieReviewResult> data) {
+        binding.switcher.setDisplayedChild(0);
+        MovieReviewListAdapter movieReviewListAdapter = new MovieReviewListAdapter(data, ((list, position) -> {
+            //do onclick detail here?
+        }));
+        binding.userReviewList.setAdapter(movieReviewListAdapter);
+    }
+
+    @Override
+    public void showProgressReview(boolean progress) {
+        binding.switcher.setDisplayedChild(0);
+    }
+
+    @Override
+    public void showMessageReview(String message) {
+        binding.switcher.setDisplayedChild(0);
     }
 }

@@ -1,6 +1,4 @@
-package com.wishihab.weflixjava.model.general;
-
-import java.util.List;
+package com.wishihab.weflixjava.model.general.movie.detail;
 
 public class MovieDetailViewState {
 
