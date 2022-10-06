@@ -224,7 +224,6 @@ public class WeflixRepositoryImpl implements WeflixRepository {
 
             @Override
             public void onFailure(Call<MovieDetailResponse> call, Throwable t) {
-                Log.e("failure", " failure" + t.getMessage());
                 listener.onError(responseDecoder.getMessageFromRetrofitException(t));
             }
         });

@@ -14,4 +14,5 @@
 
 
     <string name="netflix_tag_line">Stories move us.\nThey make us feel more emotion, see new perspectives,\nand bring us closer to each other.</string>
+    <string name="title_activity_youtube_player">YoutubePlayerActivity</string>
 </resources>

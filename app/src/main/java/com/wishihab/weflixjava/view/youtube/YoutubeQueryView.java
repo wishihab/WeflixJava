@@ -1,4 +1,4 @@
-package com.wishihab.weflixjava.view;
+package com.wishihab.weflixjava.view.youtube;
 
 import com.wishihab.weflixjava.model.general.YoutubeQueryResult;
 import com.wishihab.weflixjava.model.general.YoutubeQueryViewState;

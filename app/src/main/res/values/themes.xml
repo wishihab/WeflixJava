@@ -19,6 +19,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.WeflixJava.Actionbar">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="MainTheme" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/wePrimary</item>
         <item name="colorOnPrimary">@color/weOnPrimary</item>

@@ -7,8 +7,9 @@
         <entry key="app/src/main/res/drawable/youtube_module.xml" value="0.17" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/activity_weflix_detail.xml" value="0.20652173913043478" />
+        <entry key="app/src/main/res/layout/activity_youtube_player.xml" value="0.24864130434782608" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.14739583333333334" />
-        <entry key="app/src/main/res/layout/fragment_weflix_detail.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_weflix_detail.xml" value="0.4417526245117188" />
         <entry key="app/src/main/res/layout/fragment_weflix_home.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/fragment_youtube.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/fragment_youtube_module.xml" value="0.18429311116536456" />

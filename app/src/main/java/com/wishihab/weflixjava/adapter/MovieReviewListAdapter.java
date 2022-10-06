@@ -6,12 +6,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wishihab.weflixjava.R;
-import com.wishihab.weflixjava.databinding.MoviePopularListItemBinding;
 import com.wishihab.weflixjava.databinding.MovieReviewListItemBinding;
-import com.wishihab.weflixjava.model.general.movie.MoviePopularResult;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewResult;
-import com.wishihab.weflixjava.util.core.ImageUtil;
 
 import java.util.List;
 

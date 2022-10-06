@@ -3,7 +3,6 @@ package com.wishihab.weflixjava;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -11,12 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.wishihab.weflixjava.databinding.ActivityMainBinding;
 import com.wishihab.weflixjava.databinding.ActivityWeflixDetailBinding;
-import com.wishihab.weflixjava.view.WeflixFragmentHome;
 import com.wishihab.weflixjava.view.WeflixMovieDetailFragment;
-import com.wishihab.weflixjava.view.YoutubeModuleFragment;
+import com.wishihab.weflixjava.view.youtube.YoutubeModuleFragment;
 
 public class WeflixDetailActivity extends AppCompatActivity implements YoutubeModuleFragment.Listener {
     private static final String TAG_DETAIL = "weflix_movie_detail";
@@ -77,6 +73,5 @@ public class WeflixDetailActivity extends AppCompatActivity implements YoutubeMo
 
     @Override
     public void onDismissedCall() {
-        Log.e("dismiseed", " dismiscalled");
     }
 }
