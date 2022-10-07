@@ -7,6 +7,7 @@ import com.wishihab.weflixjava.model.general.movie.MoviePopularResult;
 import com.wishihab.weflixjava.model.general.person.PersonPopularResult;
 import com.wishihab.weflixjava.model.general.person.detail.PersonDetailResult;
 import com.wishihab.weflixjava.model.general.tv.TvPopularResult;
+import com.wishihab.weflixjava.model.general.tv.detail.TvDetailResult;
 import com.wishihab.weflixjava.repository.core.ListRepositoryListener;
 import com.wishihab.weflixjava.repository.core.RepositoryListener;
 
@@ -16,6 +17,7 @@ public interface WeflixRepository {
     void getMovieReview(String movieId, ListRepositoryListener<MovieReviewResult> listener);
 
     void getTvPopular(ListRepositoryListener<TvPopularResult> listener);
+    void getTvDetail(String tvId, RepositoryListener<TvDetailResult> listener);
 
     void getPersonPopular(ListRepositoryListener<PersonPopularResult> listener);
     void getPersonDetail(String personId, RepositoryListener<PersonDetailResult> listener);

@@ -9,9 +9,12 @@ import com.wishihab.weflixjava.model.general.movie.MoviePopularViewState;
 import com.wishihab.weflixjava.model.general.person.PersonPopularViewState;
 import com.wishihab.weflixjava.model.general.person.detail.PersonDetailViewState;
 import com.wishihab.weflixjava.model.general.tv.TvPopularViewState;
+import com.wishihab.weflixjava.model.general.tv.detail.TvDetailViewState;
 
 public interface WeflixViewModel {
     LiveData<TvPopularViewState> getTvViewState();
+    LiveData<TvDetailViewState> getTvDetailViewState();
+    void doGetTvDetail(String tvId);
 
 
     LiveData<PersonPopularViewState> getPersonViewState();

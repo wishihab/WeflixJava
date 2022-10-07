@@ -21,6 +21,7 @@ import com.wishihab.weflixjava.model.general.person.PersonPopularResult;
 import com.wishihab.weflixjava.model.general.person.detail.PersonDetailResult;
 import com.wishihab.weflixjava.model.general.tv.TvPopularResponse;
 import com.wishihab.weflixjava.model.general.tv.TvPopularResult;
+import com.wishihab.weflixjava.model.general.tv.detail.TvDetailResult;
 import com.wishihab.weflixjava.repository.core.ListRepositoryListener;
 import com.wishihab.weflixjava.repository.core.RepositoryListener;
 
@@ -104,6 +105,26 @@ public class WeflixRepositoryImpl implements WeflixRepository {
 
             @Override
             public void onFailure(Call<TvPopularResponse> call, Throwable t) {
+                listener.onError(responseDecoder.getMessageFromRetrofitException(t));
+            }
+        });
+    }
+
+    @Override
+    public void getTvDetail(String tvId, RepositoryListener<TvDetailResult> listener) {
+        createNetworkService().getDetailTv(tvId).enqueue(new SimpleCallback<TvDetailResult>() {
+            @Override
+            protected void onHttpResponseSuccess(Call<TvDetailResult> call, Response<TvDetailResult> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            protected void onHttpResponseFailed(Call<TvDetailResult> call, Response<TvDetailResult> response) {
+                listener.onError(responseDecoder.getErrorMessage(response));
+            }
+
+            @Override
+            public void onFailure(Call<TvDetailResult> call, Throwable t) {
                 listener.onError(responseDecoder.getMessageFromRetrofitException(t));
             }
         });

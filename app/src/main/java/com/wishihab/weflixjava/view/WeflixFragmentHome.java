@@ -48,6 +48,7 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
     private static final String ARG_MOVIE_TITLE = "movie_title";
     private static final String ARG_DETAIL_TYPE = "detail_type";
     private static final String ARG_PERSON_ID = "person_id";
+    private static final String ARG_TV_ID = "tv_id";
 
     private boolean isLoading = false;
     private Integer page = 1;
@@ -142,7 +143,7 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         binding.switcher.setDisplayedChild(0);
         binding.movieHandler.setVisibility(View.GONE);
         moviePopularListAdapter = new MoviePopularListAdapter(data, ((list, position) -> {
-            initActivityDetail("movies", "", list.getId(), list.getOriginalTitle());
+            initActivityDetail("movies", "", list.getId(), list.getOriginalTitle(), "");
         }));
         binding.moviePopularList.setAdapter(moviePopularListAdapter);
         binding.moviePopularAllBtn.setOnClickListener(v -> initActivityList("movies"));
@@ -153,7 +154,7 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         binding.switcher.setDisplayedChild(0);
         binding.tvHandler.setVisibility(View.GONE);
         TvPopularListAdapter tvPopularListAdapter = new TvPopularListAdapter(data, ((list, position) -> {
-            //do onclick detail here?
+            initActivityDetail("tv", "", "", "", list.getId());
         }));
         binding.tvPopularList.setAdapter(tvPopularListAdapter);
         binding.tvPopularAllBtn.setOnClickListener(v -> initActivityList("tv"));
@@ -164,7 +165,7 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         binding.switcher.setDisplayedChild(0);
         binding.personHandler.setVisibility(View.GONE);
         PersonPopularListAdapter personPopularListAdapter= new PersonPopularListAdapter(data, ((list, position) -> {
-            initActivityDetail("person", list.getId(), "", "");
+            initActivityDetail("person", list.getId(), "", "", "");
         }));
         binding.personPopularList.setAdapter(personPopularListAdapter);
         binding.personPopularAllBtn.setOnClickListener(v -> initActivityList("person"));
@@ -190,12 +191,13 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         binding.personHandler.setVisibility(View.VISIBLE);
     }
 
-    private void initActivityDetail(String type, String personId, String movieId, String movieTitle) {
+    private void initActivityDetail(String type, String personId, String movieId, String movieTitle, String tvId) {
         Intent intent = WeflixDetailActivity.newIntent(requireActivity());
         intent.putExtra(ARG_DETAIL_TYPE, type);
         intent.putExtra(ARG_PERSON_ID, personId);
         intent.putExtra(ARG_MOVIE_ID, movieId);
         intent.putExtra(ARG_MOVIE_TITLE, movieTitle);
+        intent.putExtra(ARG_TV_ID, tvId);
         startActivity(intent);
     }
 

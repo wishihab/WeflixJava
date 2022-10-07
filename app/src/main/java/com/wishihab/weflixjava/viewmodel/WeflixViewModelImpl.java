@@ -21,6 +21,8 @@ import com.wishihab.weflixjava.model.general.person.detail.PersonDetailResult;
 import com.wishihab.weflixjava.model.general.person.detail.PersonDetailViewState;
 import com.wishihab.weflixjava.model.general.tv.TvPopularResult;
 import com.wishihab.weflixjava.model.general.tv.TvPopularViewState;
+import com.wishihab.weflixjava.model.general.tv.detail.TvDetailResult;
+import com.wishihab.weflixjava.model.general.tv.detail.TvDetailViewState;
 import com.wishihab.weflixjava.repository.core.ListRepositoryListener;
 import com.wishihab.weflixjava.repository.core.RepositoryListener;
 import com.wishihab.weflixjava.repository.general.WeflixRepository;
@@ -37,6 +39,7 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
     private final MutableLiveData<MovieReviewViewState> movieReviewViewState;
     private final MutableLiveData<YoutubeQueryViewState> youtubeIdViewState;
     private final MutableLiveData<PersonDetailViewState> personDetailViewState;
+    private final MutableLiveData<TvDetailViewState> tvDetailViewState;
     private final WeflixRepository weflixRepository;
 
     public WeflixViewModelImpl(Application application){
@@ -53,6 +56,7 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
         movieReviewViewState = new MutableLiveData<>();
         youtubeIdViewState = new MutableLiveData<>();
         personDetailViewState = new MutableLiveData<>();
+        tvDetailViewState = new MutableLiveData<>();
     }
     @Override
     public LiveData<MoviePopularViewState> getMovieViewState() {
@@ -85,6 +89,27 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
             refreshTv();
         }
         return tvViewState;
+    }
+
+    @Override
+    public LiveData<TvDetailViewState> getTvDetailViewState() {
+        return tvDetailViewState;
+    }
+
+    @Override
+    public void doGetTvDetail(String tvId) {
+        tvDetailViewState.postValue(TvDetailViewState.progress());
+        weflixRepository.getTvDetail(tvId, new RepositoryListener<TvDetailResult>() {
+            @Override
+            public void onSuccess(@NonNull TvDetailResult data) {
+                tvDetailViewState.postValue(TvDetailViewState.requestSuccess(data));
+            }
+
+            @Override
+            public void onError(@NonNull String message) {
+                tvDetailViewState.postValue(TvDetailViewState.errorMessage(message));
+            }
+        });
     }
 
     @Override
