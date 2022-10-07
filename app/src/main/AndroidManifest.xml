@@ -34,6 +34,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".WeflixListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WeflixJava.Actionbar" />
+        <activity
             android:name=".WeflixDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"

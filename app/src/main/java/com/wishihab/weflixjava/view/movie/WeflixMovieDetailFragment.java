@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.wishihab.weflixjava.R;
 import com.wishihab.weflixjava.YoutubePlayerActivity;
-import com.wishihab.weflixjava.adapter.general.MovieReviewListAdapter;
+import com.wishihab.weflixjava.adapter.general.movie.MovieReviewListAdapter;
 import com.wishihab.weflixjava.databinding.FragmentWeflixDetailBinding;
 import com.wishihab.weflixjava.model.general.YoutubeQueryResult;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewResult;

@@ -1,4 +1,4 @@
-package com.wishihab.weflixjava.adapter.general;
+package com.wishihab.weflixjava.adapter.general.movie;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,18 +9,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wishihab.weflixjava.R;
 import com.wishihab.weflixjava.adapter.core.AdapterListener;
 import com.wishihab.weflixjava.databinding.MoviePopularListItemBinding;
-import com.wishihab.weflixjava.model.general.tv.TvPopularResult;
+import com.wishihab.weflixjava.model.general.movie.MoviePopularResult;
 import com.wishihab.weflixjava.util.core.ImageUtil;
 
 import java.util.List;
 
-public class TvPopularListAdapter extends RecyclerView.Adapter<TvPopularListAdapter.ViewHolder> {
+public class MoviePopularListAdapter extends RecyclerView.Adapter<MoviePopularListAdapter.ViewHolder> {
 
-    private final List<TvPopularResult> tvs;
-    private final AdapterListener<TvPopularResult> listener;
+    private final List<MoviePopularResult> movies;
+    private final AdapterListener<MoviePopularResult> listener;
 
-    public TvPopularListAdapter(List<TvPopularResult> tvs, AdapterListener<TvPopularResult> listener){
-        this.tvs = tvs;
+    public MoviePopularListAdapter(List<MoviePopularResult> movies, AdapterListener<MoviePopularResult> listener){
+        this.movies = movies;
         this.listener = listener;
     }
 
@@ -33,12 +33,12 @@ public class TvPopularListAdapter extends RecyclerView.Adapter<TvPopularListAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TvPopularResult item = tvs.get(position);
+        MoviePopularResult item = movies.get(position);
         holder.bind(item);
     }
 
     @Override
-    public int getItemCount(){ return tvs.size(); }
+    public int getItemCount(){ return movies.size(); }
 
     class ViewHolder extends RecyclerView.ViewHolder{
         private MoviePopularListItemBinding binding;
@@ -48,12 +48,12 @@ public class TvPopularListAdapter extends RecyclerView.Adapter<TvPopularListAdap
             this.binding = binding;
             itemView.setOnClickListener(v -> {
                 int pos = getLayoutPosition();
-                TvPopularResult item = tvs.get(pos);
+                MoviePopularResult item = movies.get(pos);
                 listener.onItemClick(item, pos);
             });
         }
 
-        public void bind(TvPopularResult item){
+        public void bind(MoviePopularResult item){
             ImageUtil.loadImage(binding.posterPlaceholder, item.getPosterPath(), R.drawable.dummy_poster);
             String fullVote = String.valueOf(item.getVoteAverage())+ " ★";
             binding.ratePlaceholder.setText(fullVote);

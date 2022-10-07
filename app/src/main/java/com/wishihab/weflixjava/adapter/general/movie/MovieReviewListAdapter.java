@@ -1,4 +1,4 @@
-package com.wishihab.weflixjava.adapter.general;
+package com.wishihab.weflixjava.adapter.general.movie;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

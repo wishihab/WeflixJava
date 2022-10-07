@@ -6,4 +6,6 @@
     <color name="weSecondary">#20D8A2</color>
     <color name="weOnSecondary">#FFFFFF</color>
     <color name="weStatusBar">#F7F7F7</color>
+
+    <color name="background_custom">#F6F7FA</color>
 </resources>
