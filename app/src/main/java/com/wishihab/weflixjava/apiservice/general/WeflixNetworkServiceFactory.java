@@ -7,6 +7,8 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.wishihab.weflixjava.BaseUrl;
+
 
 public class WeflixNetworkServiceFactory {
 
@@ -17,7 +19,7 @@ public class WeflixNetworkServiceFactory {
 
         // Historically, default URL retrieved from resources using context.
         // Currently it is not used, and context has been kept for API compatibility
-        String url = "https://api.themoviedb.org/";
+        String url = BaseUrl.URL;
         return createService(url, clazz);
     }
 

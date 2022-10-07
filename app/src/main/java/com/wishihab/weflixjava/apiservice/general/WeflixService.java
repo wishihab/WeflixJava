@@ -14,21 +14,23 @@ import retrofit2.http.Query;
 
 public interface WeflixService {
 
-    @GET("https://api.themoviedb.org/3/movie/popular?api_key=146f213f7f57825fa9e1e43b7db04884&page=1")
-    Call<MoviePopularResponse> getMoviePopularList();
+    @GET("movie/popular?api_key=146f213f7f57825fa9e1e43b7db04884&")
+    Call<MoviePopularResponse> getMoviePopularList(
+            @Query("page") Integer page
+    );
 
-    @GET("https://api.themoviedb.org/3/tv/popular?api_key=146f213f7f57825fa9e1e43b7db04884&page=1")
+    @GET("tv/popular?api_key=146f213f7f57825fa9e1e43b7db04884&page=1")
     Call<TvPopularResponse> getTvPopularList();
 
-    @GET("https://api.themoviedb.org/3/person/popular?api_key=146f213f7f57825fa9e1e43b7db04884&page=1")
+    @GET("person/popular?api_key=146f213f7f57825fa9e1e43b7db04884&page=1")
     Call<PersonPopularResponse> getPersonPopularList();
 
-    @GET("https://api.themoviedb.org/3/movie/{movie_id}?api_key=146f213f7f57825fa9e1e43b7db04884")
+    @GET("movie/{movie_id}?api_key=146f213f7f57825fa9e1e43b7db04884")
     Call<MovieDetailResponse> getDetailMovie(
             @Path("movie_id") String movieId
     );
 
-    @GET("https://api.themoviedb.org/3/movie/{movie_id}/reviews?api_key=146f213f7f57825fa9e1e43b7db04884")
+    @GET("movie/{movie_id}/reviews?api_key=146f213f7f57825fa9e1e43b7db04884")
     Call<MovieReviewResponse> getMovieReview(
             @Path("movie_id") String movieId
     );

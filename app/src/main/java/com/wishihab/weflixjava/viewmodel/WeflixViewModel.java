@@ -20,6 +20,7 @@ public interface WeflixViewModel {
 
 
     LiveData<MoviePopularViewState> getMovieViewState();
+    void doGetMoviePage(Integer page);
     LiveData<MovieDetailViewState> getMovieDetailViewState();
     LiveData<MovieReviewViewState> getMovieReviewViewState();
     void doGetMovieDetail(String movieId);

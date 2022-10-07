@@ -28,6 +28,17 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    flavorDimensions "environment"
+    productFlavors {
+        dev {
+            dimension "environment"
+        }
+
+        prod {
+            dimension "environment"
+        }
+    }
 }
 
 dependencies {

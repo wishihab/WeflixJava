@@ -40,8 +40,8 @@ public class WeflixRepositoryImpl implements WeflixRepository {
     }
 
     @Override
-    public void getMoviePopular(ListRepositoryListener<MoviePopularResult> listener) {
-        createNetworkService().getMoviePopularList().enqueue(new SimpleCallback<MoviePopularResponse>() {
+    public void getMoviePopular(Integer page, ListRepositoryListener<MoviePopularResult> listener) {
+        createNetworkService().getMoviePopularList(page).enqueue(new SimpleCallback<MoviePopularResponse>() {
             @Override
             protected void onHttpResponseSuccess(Call<MoviePopularResponse> call, Response<MoviePopularResponse> response) {
                 MoviePopularResponse body = response.body();

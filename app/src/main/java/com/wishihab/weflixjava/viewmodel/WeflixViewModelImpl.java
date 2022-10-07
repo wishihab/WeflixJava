@@ -59,6 +59,23 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
     }
 
     @Override
+    public void doGetMoviePage(Integer page) {
+        movieViewState.postValue(MoviePopularViewState.progress());
+        weflixRepository.getMoviePopular(page, new ListRepositoryListener<MoviePopularResult>(){
+
+            @Override
+            public void onSuccess(@NonNull List<MoviePopularResult> data) {
+                movieViewState.postValue(MoviePopularViewState.requestSuccess(data));
+            }
+
+            @Override
+            public void onError(@NonNull String message) {
+                movieViewState.postValue(MoviePopularViewState.errorMessage(message));
+            }
+        });
+    }
+
+    @Override
     public LiveData<TvPopularViewState> getTvViewState() {
         if(tvViewState.getValue() == null){
             refreshTv();
@@ -83,19 +100,7 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
 
     @Override
     public void refreshMovie() {
-        movieViewState.postValue(MoviePopularViewState.progress());
-        weflixRepository.getMoviePopular(new ListRepositoryListener<MoviePopularResult>(){
 
-            @Override
-            public void onSuccess(@NonNull List<MoviePopularResult> data) {
-                movieViewState.postValue(MoviePopularViewState.requestSuccess(data));
-            }
-
-            @Override
-            public void onError(@NonNull String message) {
-                movieViewState.postValue(MoviePopularViewState.errorMessage(message));
-            }
-        });
     }
 
     @Override

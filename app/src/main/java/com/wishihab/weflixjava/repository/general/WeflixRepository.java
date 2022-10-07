@@ -10,7 +10,7 @@ import com.wishihab.weflixjava.repository.core.ListRepositoryListener;
 import com.wishihab.weflixjava.repository.core.RepositoryListener;
 
 public interface WeflixRepository {
-    void getMoviePopular(ListRepositoryListener<MoviePopularResult> listener);
+    void getMoviePopular(Integer page, ListRepositoryListener<MoviePopularResult> listener);
     void getMovieDetail(String movieId, RepositoryListener<MovieDetailResponse> listener);
     void getMovieReview(String movieId, ListRepositoryListener<MovieReviewResult> listener);
 

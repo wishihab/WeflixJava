@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.wishihab.weflixjava.R;
 import com.wishihab.weflixjava.YoutubePlayerActivity;
@@ -138,6 +139,7 @@ public class WeflixMovieDetailFragment extends Fragment implements MovieDetailVi
 
     @Override
     public void showMessage(String message) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
         binding.switcher.setDisplayedChild(0);
     }
 

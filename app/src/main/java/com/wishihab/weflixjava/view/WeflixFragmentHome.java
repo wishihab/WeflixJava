@@ -8,7 +8,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +30,7 @@ import com.wishihab.weflixjava.view.tv.TvView;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModel;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModelImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,8 +47,11 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
     private static final String ARG_MOVIE_ID = "movie_id";
     private static final String ARG_MOVIE_TITLE = "movie_title";
 
+    private boolean isLoading = false;
+    private Integer page = 1;
     private FragmentWeflixHomeBinding binding;
     private WeflixViewModel weflixViewModel;
+    private MoviePopularListAdapter moviePopularListAdapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -103,6 +110,8 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         ViewModelProvider provider = new ViewModelProvider(this);
         weflixViewModel = provider.get(WeflixViewModelImpl.class);
         weflixViewModel.getMovieViewState().observe(getViewLifecycleOwner(), this::apply);
+        weflixViewModel.doGetMoviePage(page);
+        Log.e("page " , "page " + page);
         weflixViewModel.getTvViewState().observe(getViewLifecycleOwner(), this::apply);
         weflixViewModel.getPersonViewState().observe(getViewLifecycleOwner(), this::apply);
     }
@@ -130,10 +139,11 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         //data
         binding.switcher.setDisplayedChild(0);
         binding.movieHandler.setVisibility(View.GONE);
-        MoviePopularListAdapter moviePopularListAdapter = new MoviePopularListAdapter(data, ((list, position) -> {
+        moviePopularListAdapter = new MoviePopularListAdapter(data, ((list, position) -> {
             initActivityDetail(list.getId(), list.getOriginalTitle());
         }));
         binding.moviePopularList.setAdapter(moviePopularListAdapter);
+        initMovieScrollListener(data);
     }
 
     @Override
@@ -181,5 +191,39 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         intent.putExtra(ARG_MOVIE_ID, movieId);
         intent.putExtra(ARG_MOVIE_TITLE, movieTitle);
         startActivity(intent);
+    }
+
+    private void initMovieScrollListener(List<MoviePopularResult> data){
+        binding.moviePopularList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) binding.moviePopularList.getLayoutManager();
+                if(!isLoading){
+                    if(linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == data.size() -1){
+                        isLoading = true;
+                        loadMoreMovie(data);
+                    }
+                }
+            }
+        });
+    }
+
+    private void loadMoreMovie(List<MoviePopularResult> data){
+        page++;
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("page " , "page " + page);
+                weflixViewModel.doGetMoviePage(page);
+                isLoading = false;
+            }
+        }, 2000);
     }
 }
