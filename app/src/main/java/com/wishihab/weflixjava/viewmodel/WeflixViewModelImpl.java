@@ -17,6 +17,8 @@ import com.wishihab.weflixjava.model.general.movie.MoviePopularResult;
 import com.wishihab.weflixjava.model.general.movie.MoviePopularViewState;
 import com.wishihab.weflixjava.model.general.person.PersonPopularResult;
 import com.wishihab.weflixjava.model.general.person.PersonPopularViewState;
+import com.wishihab.weflixjava.model.general.person.detail.PersonDetailResult;
+import com.wishihab.weflixjava.model.general.person.detail.PersonDetailViewState;
 import com.wishihab.weflixjava.model.general.tv.TvPopularResult;
 import com.wishihab.weflixjava.model.general.tv.TvPopularViewState;
 import com.wishihab.weflixjava.repository.core.ListRepositoryListener;
@@ -34,6 +36,7 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
     private final MutableLiveData<MovieDetailViewState> movieDetailViewState;
     private final MutableLiveData<MovieReviewViewState> movieReviewViewState;
     private final MutableLiveData<YoutubeQueryViewState> youtubeIdViewState;
+    private final MutableLiveData<PersonDetailViewState> personDetailViewState;
     private final WeflixRepository weflixRepository;
 
     public WeflixViewModelImpl(Application application){
@@ -49,6 +52,7 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
         movieDetailViewState = new MutableLiveData<>();
         movieReviewViewState = new MutableLiveData<>();
         youtubeIdViewState = new MutableLiveData<>();
+        personDetailViewState = new MutableLiveData<>();
     }
     @Override
     public LiveData<MoviePopularViewState> getMovieViewState() {
@@ -89,6 +93,27 @@ public class WeflixViewModelImpl extends AndroidViewModel implements WeflixViewM
             refreshPerson();
         }
         return personViewState;
+    }
+
+    @Override
+    public LiveData<PersonDetailViewState> getPersonDetailViewstate() {
+        return personDetailViewState;
+    }
+
+    @Override
+    public void doGetPersonDetail(String personId) {
+        personDetailViewState.postValue(PersonDetailViewState.progress());
+        weflixRepository.getPersonDetail(personId, new RepositoryListener<PersonDetailResult>() {
+            @Override
+            public void onSuccess(@NonNull PersonDetailResult data) {
+                personDetailViewState.postValue(PersonDetailViewState.requestSuccess(data));
+            }
+
+            @Override
+            public void onError(@NonNull String message) {
+                personDetailViewState.postValue(PersonDetailViewState.errorMessage(message));
+            }
+        });
     }
 
     @Override

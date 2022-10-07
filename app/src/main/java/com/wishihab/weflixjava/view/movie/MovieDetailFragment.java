@@ -33,10 +33,10 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link WeflixMovieDetailFragment#newInstance} factory method to
+ * Use the {@link MovieDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeflixMovieDetailFragment extends Fragment implements MovieDetailView, MovieReviewView, YoutubeQueryView {
+public class MovieDetailFragment extends Fragment implements MovieDetailView, MovieReviewView, YoutubeQueryView {
 
     private static final String ARG_YOUTUBE_ID = "youtube_id";
     // TODO: Rename parameter arguments, choose names that match
@@ -51,7 +51,7 @@ public class WeflixMovieDetailFragment extends Fragment implements MovieDetailVi
     private String mParam1;
     private String mParam2;
 
-    public WeflixMovieDetailFragment() {
+    public MovieDetailFragment() {
         // Required empty public constructor
     }
 
@@ -64,8 +64,8 @@ public class WeflixMovieDetailFragment extends Fragment implements MovieDetailVi
      * @return A new instance of fragment WeflixDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static WeflixMovieDetailFragment newInstance(String param1, String param2) {
-        WeflixMovieDetailFragment fragment = new WeflixMovieDetailFragment();
+    public static MovieDetailFragment newInstance(String param1, String param2) {
+        MovieDetailFragment fragment = new MovieDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

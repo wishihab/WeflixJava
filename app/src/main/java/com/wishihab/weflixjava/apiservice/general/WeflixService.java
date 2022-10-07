@@ -5,6 +5,7 @@ import com.wishihab.weflixjava.model.general.movie.detail.MovieDetailResponse;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewResponse;
 import com.wishihab.weflixjava.model.general.movie.MoviePopularResponse;
 import com.wishihab.weflixjava.model.general.person.PersonPopularResponse;
+import com.wishihab.weflixjava.model.general.person.detail.PersonDetailResult;
 import com.wishihab.weflixjava.model.general.tv.TvPopularResponse;
 
 import retrofit2.Call;
@@ -22,9 +23,6 @@ public interface WeflixService {
     @GET("tv/popular?api_key=146f213f7f57825fa9e1e43b7db04884&page=1")
     Call<TvPopularResponse> getTvPopularList();
 
-    @GET("person/popular?api_key=146f213f7f57825fa9e1e43b7db04884&page=1")
-    Call<PersonPopularResponse> getPersonPopularList();
-
     @GET("movie/{movie_id}?api_key=146f213f7f57825fa9e1e43b7db04884")
     Call<MovieDetailResponse> getDetailMovie(
             @Path("movie_id") String movieId
@@ -40,6 +38,15 @@ public interface WeflixService {
     Call<YoutubeQueryResponse> getYoutubeVideo(
             @Query("q") String movieTitle,
             @Query("key") String apiKey
+    );
+
+    //person
+    @GET("person/popular?api_key=146f213f7f57825fa9e1e43b7db04884&page=1")
+    Call<PersonPopularResponse> getPersonPopularList();
+
+    @GET("person/{personId}?api_key=146f213f7f57825fa9e1e43b7db04884")
+    Call<PersonDetailResult> getDetailPerson(
+            @Path("personId") String personId
     );
 
 

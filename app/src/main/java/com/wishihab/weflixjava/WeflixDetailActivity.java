@@ -11,13 +11,16 @@ import androidx.core.view.WindowCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.wishihab.weflixjava.databinding.ActivityWeflixDetailBinding;
-import com.wishihab.weflixjava.view.movie.WeflixMovieDetailFragment;
+import com.wishihab.weflixjava.view.movie.MovieDetailFragment;
+import com.wishihab.weflixjava.view.person.PersonDetailFragment;
 import com.wishihab.weflixjava.view.youtube.YoutubeModuleFragment;
 
 public class WeflixDetailActivity extends AppCompatActivity implements YoutubeModuleFragment.Listener {
     private static final String TAG_DETAIL = "weflix_movie_detail";
+    private static final String ARG_DETAIL_TYPE = "detail_type";
     private static final String ARG_MOVIE_ID = "movie_id";
     private static final String ARG_MOVIE_TITLE = "movie_title";
+    private static final String ARG_PERSON_ID = "person_id";
 
     private ActivityWeflixDetailBinding binding;
 
@@ -55,18 +58,34 @@ public class WeflixDetailActivity extends AppCompatActivity implements YoutubeMo
         setContentView(binding.getRoot());
 
         Intent intent = getIntent();
+        if(intent.getStringExtra(ARG_DETAIL_TYPE).equals("movies")){
+            initFragment(intent.getStringExtra(ARG_MOVIE_ID), intent.getStringExtra(ARG_MOVIE_TITLE));
+        }else if(intent.getStringExtra(ARG_DETAIL_TYPE).equals("tv")){
 
-        initFragment(intent.getStringExtra(ARG_MOVIE_ID), intent.getStringExtra(ARG_MOVIE_TITLE));
+        }else{
+            initFragmentPerson(intent.getStringExtra(ARG_PERSON_ID));
+        }
     }
 
 
     private void initFragment(String movieId, String movieTitle) {
         FragmentManager manager = getSupportFragmentManager();
-        WeflixMovieDetailFragment weflixMovieDetailFragment = (WeflixMovieDetailFragment) manager.findFragmentByTag(TAG_DETAIL);
-        if (weflixMovieDetailFragment == null) {
-            weflixMovieDetailFragment = WeflixMovieDetailFragment.newInstance(movieId,movieTitle);
+        MovieDetailFragment movieDetailFragment = (MovieDetailFragment) manager.findFragmentByTag(TAG_DETAIL);
+        if (movieDetailFragment == null) {
+            movieDetailFragment = MovieDetailFragment.newInstance(movieId,movieTitle);
             manager.beginTransaction()
-                    .replace(R.id.content_view, weflixMovieDetailFragment, TAG_DETAIL)
+                    .replace(R.id.content_view, movieDetailFragment, TAG_DETAIL)
+                    .commit();
+        }
+    }
+
+    private void initFragmentPerson(String personId) {
+        FragmentManager manager = getSupportFragmentManager();
+        PersonDetailFragment personDetailFragment = (PersonDetailFragment) manager.findFragmentByTag(TAG_DETAIL);
+        if (personDetailFragment == null) {
+            personDetailFragment = PersonDetailFragment.newInstance(personId, "");
+            manager.beginTransaction()
+                    .replace(R.id.content_view, personDetailFragment, TAG_DETAIL)
                     .commit();
         }
     }

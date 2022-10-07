@@ -52,8 +52,8 @@ public class WeflixListActivity extends AppCompatActivity {
         binding = ActivityListMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.appBar.upButton.setOnClickListener(v-> finish());
         Intent intent = getIntent();
-
 
         initFragment(intent.getStringExtra(ARG_TYPE_ID));
     }

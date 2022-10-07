@@ -110,6 +110,7 @@ public class MovieListTabFragment extends Fragment implements MovieView{
         for(int i=0; i<data.size(); i++){
             dataLocal.add(data.get(i));
         }
+        Log.e("size " , " data local " + dataLocal.size());
         movieTabListAdapter = new MovieTabListAdapter(dataLocal, ((list, position) -> {
             initActivityDetail(list.getId(), list.getOriginalTitle());
         }));
@@ -139,7 +140,7 @@ public class MovieListTabFragment extends Fragment implements MovieView{
                 super.onScrolled(recyclerView, dx, dy);
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) binding.recyclerView.getLayoutManager();
                 if(!isLoading){
-                    if(linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == data.size() -1){
+                    if(linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == dataLocal.size() -1){
                         isLoading = true;
                         loadMoreMovie(data);
                     }
@@ -149,7 +150,6 @@ public class MovieListTabFragment extends Fragment implements MovieView{
     }
 
     private void loadMoreMovie(List<MoviePopularResult> data){
-        //move ke tab aja
         page++;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
