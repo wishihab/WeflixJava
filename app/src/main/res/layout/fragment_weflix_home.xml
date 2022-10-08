@@ -158,16 +158,6 @@
                             app:layout_constraintTop_toTopOf="parent"/>
 
                         <TextView
-                            android:id="@+id/tv_popular_all_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/tab_more_name"
-                            android:textColor="#346AF6"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/text_xtiny"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-                        <TextView
                             android:id="@+id/tv_handler"
                             android:visibility="gone"
                             android:layout_width="wrap_content"
@@ -211,18 +201,6 @@
                             android:textSize="@dimen/text_tiny"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
-
-                        <TextView
-                            android:id="@+id/person_popular_all_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/tab_more_name"
-                            android:textColor="#346AF6"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/text_xtiny"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-
 
                         <TextView
                             android:id="@+id/person_handler"

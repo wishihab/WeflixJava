@@ -7,13 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/** Dynamic class.
- *
- *  This class mostly used for mapping dynamic JSON properties.
- *  Note that JSON null should map to java null instead.
- *
- * @author Bangun Kurniawan
- */
 public abstract class DynamicType {
 
     public static class StringType extends DynamicType {
@@ -207,46 +200,6 @@ public abstract class DynamicType {
             return this;
         }
 
-        /** Get value at given index with key as string if available.
-         *
-         */
-        @Nullable
-        public String getChildAsString(int index) {
-            DynamicType v = value.get(index);
-            if (v != null) {
-                return v.getAsString();
-            } else {
-                return null;
-            }
-        }
-
-        /** Get value  at given index as double if available.
-         *
-         */
-        public double getChildAsDouble(int index, double fallback) {
-            DynamicType v = value.get(index);
-            if (v != null) {
-                return v.getAsDouble(fallback);
-            } else {
-                return fallback;
-            }
-        }
-
-        /** Get list element as string, separated by given separator.
-         *
-         */
-        public String join(String separator) {
-            int n = value.size();
-            StringBuilder sb = new StringBuilder();
-            for (int i=0; i<n; i++) {
-                sb.append(value.get(i));
-                if (i+1 < n) {
-                    sb.append(separator);
-                }
-            }
-            return sb.toString();
-        }
-
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -294,58 +247,6 @@ public abstract class DynamicType {
         /** Get value associated with key as string if available.
          *
          */
-        @Nullable
-        public String getChildAsString(@NonNull String key) {
-            DynamicType v = value.get(key);
-            if (v != null) {
-                return v.getAsString();
-            } else {
-                return null;
-            }
-        }
-
-        public int getChildAsInt(@NonNull String key, int fallback) {
-            DynamicType v = value.get(key);
-            if (v != null) {
-                return v.getAsInt(fallback);
-            } else {
-                return fallback;
-            }
-        }
-
-        public double getChildAsDouble(@NonNull String key, double fallback) {
-            DynamicType v = value.get(key);
-            if (v != null) {
-                return v.getAsDouble(fallback);
-            } else {
-                return fallback;
-            }
-        }
-
-        public long getChildAsLong(@NonNull String key, long fallback) {
-            DynamicType v = value.get(key);
-            if (v != null) {
-                return v.getAsLong(fallback);
-            } else {
-                return fallback;
-            }
-        }
-
-        /** Get associated value with key as boolean.
-         * @return
-         *      true if key exist and {@link #getAsBoolean()} is true,
-         *      otherwise return false.
-         *
-         */
-        public boolean getChildAsBoolean(@NonNull String key) {
-            DynamicType v = value.get(key);
-            if (v != null) {
-                return v.getAsBoolean();
-            } else {
-                return false;
-            }
-        }
-
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;

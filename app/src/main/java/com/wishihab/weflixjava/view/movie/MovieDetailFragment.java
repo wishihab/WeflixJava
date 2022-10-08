@@ -31,11 +31,6 @@ import com.wishihab.weflixjava.viewmodel.WeflixViewModelImpl;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MovieDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MovieDetailFragment extends Fragment implements MovieDetailView, MovieReviewView, YoutubeQueryView {
 
     private static final String ARG_YOUTUBE_ID = "youtube_id";
@@ -51,19 +46,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailView, Mo
     private String mParam1;
     private String mParam2;
 
-    public MovieDetailFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WeflixDetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static MovieDetailFragment newInstance(String param1, String param2) {
         MovieDetailFragment fragment = new MovieDetailFragment();
         Bundle args = new Bundle();

@@ -85,7 +85,7 @@ public class WeflixDetailActivity extends AppCompatActivity implements YoutubeMo
         FragmentManager manager = getSupportFragmentManager();
         PersonDetailFragment personDetailFragment = (PersonDetailFragment) manager.findFragmentByTag(TAG_DETAIL);
         if (personDetailFragment == null) {
-            personDetailFragment = PersonDetailFragment.newInstance(personId, "");
+            personDetailFragment = PersonDetailFragment.newInstance(personId);
             manager.beginTransaction()
                     .replace(R.id.content_view, personDetailFragment, TAG_DETAIL)
                     .commit();
@@ -96,7 +96,7 @@ public class WeflixDetailActivity extends AppCompatActivity implements YoutubeMo
         FragmentManager manager = getSupportFragmentManager();
         TvDetailFragment tvDetailFragment = (TvDetailFragment) manager.findFragmentByTag(TAG_DETAIL);
         if (tvDetailFragment == null) {
-            tvDetailFragment = TvDetailFragment.newInstance(tvId, "");
+            tvDetailFragment = TvDetailFragment.newInstance(tvId);
             manager.beginTransaction()
                     .replace(R.id.content_view, tvDetailFragment, TAG_DETAIL)
                     .commit();

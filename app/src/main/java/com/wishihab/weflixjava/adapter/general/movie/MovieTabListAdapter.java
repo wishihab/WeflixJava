@@ -19,8 +19,6 @@ import java.util.List;
 
 public class MovieTabListAdapter extends RecyclerView.Adapter<MovieTabListAdapter.ViewHolder> {
 
-    private final int VIEW_TYPE_ITEM = 0;
-    private final int VIEW_TYPE_LOADING = 1;
     private final List<MoviePopularResult> movies;
     private final AdapterListener<MoviePopularResult> listener;
 
@@ -38,9 +36,6 @@ public class MovieTabListAdapter extends RecyclerView.Adapter<MovieTabListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(holder instanceof ViewHolder){
-
-        }
         MoviePopularResult item = movies.get(position);
         holder.bind(item);
     }

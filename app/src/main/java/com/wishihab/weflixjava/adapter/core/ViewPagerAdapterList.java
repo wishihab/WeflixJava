@@ -12,7 +12,6 @@ import java.util.List;
 public class ViewPagerAdapterList extends FragmentStateAdapter {
 
     private List<Fragment> fragmentList = new ArrayList<>();
-    private List<String> fragmentTitles = new ArrayList<>();
 
     public ViewPagerAdapterList(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);

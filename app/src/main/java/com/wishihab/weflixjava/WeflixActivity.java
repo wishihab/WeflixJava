@@ -55,7 +55,7 @@ public class WeflixActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         WeflixFragmentHome mainFragment = (WeflixFragmentHome) manager.findFragmentByTag(TAG_MAIN);
         if (mainFragment == null) {
-            mainFragment = WeflixFragmentHome.newInstance("","");
+            mainFragment = WeflixFragmentHome.newInstance();
             manager.beginTransaction()
                     .replace(R.id.content_view, mainFragment, TAG_MAIN)
                     .commit();

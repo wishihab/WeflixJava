@@ -32,7 +32,6 @@ public interface WeflixService {
             @Path("movie_id") String movieId
     );
 
-    //?q={movie_title}&key=AIzaSyBNggAqYJVmKn-p7D_DrlWyX3Rc24fv0uI
     @GET("https://youtube.googleapis.com/youtube/v3/search")
     Call<YoutubeQueryResponse> getYoutubeVideo(
             @Query("q") String movieTitle,

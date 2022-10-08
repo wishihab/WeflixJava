@@ -33,51 +33,23 @@ import com.wishihab.weflixjava.viewmodel.WeflixViewModelImpl;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WeflixFragmentHome#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class WeflixFragmentHome extends Fragment implements MovieView, TvView, PersonView {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private static final String ARG_MOVIE_ID = "movie_id";
     private static final String ARG_MOVIE_TITLE = "movie_title";
     private static final String ARG_DETAIL_TYPE = "detail_type";
     private static final String ARG_PERSON_ID = "person_id";
     private static final String ARG_TV_ID = "tv_id";
 
-    private boolean isLoading = false;
     private Integer page = 1;
     private FragmentWeflixHomeBinding binding;
     private WeflixViewModel weflixViewModel;
     private MoviePopularListAdapter moviePopularListAdapter;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public WeflixFragmentHome() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WeflixFragmentHome.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static WeflixFragmentHome newInstance(String param1, String param2) {
+    public static WeflixFragmentHome newInstance() {
         WeflixFragmentHome fragment = new WeflixFragmentHome();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -85,10 +57,6 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -114,7 +82,6 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         weflixViewModel = provider.get(WeflixViewModelImpl.class);
         weflixViewModel.getMovieViewState().observe(getViewLifecycleOwner(), this::apply);
         weflixViewModel.doGetMoviePage(page);
-        Log.e("page " , "page " + page);
         weflixViewModel.getTvViewState().observe(getViewLifecycleOwner(), this::apply);
         weflixViewModel.getPersonViewState().observe(getViewLifecycleOwner(), this::apply);
     }
@@ -157,7 +124,6 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
             initActivityDetail("tv", "", "", "", list.getId());
         }));
         binding.tvPopularList.setAdapter(tvPopularListAdapter);
-        binding.tvPopularAllBtn.setOnClickListener(v -> initActivityList("tv"));
     }
 
     @Override
@@ -168,7 +134,6 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
             initActivityDetail("person", list.getId(), "", "", "");
         }));
         binding.personPopularList.setAdapter(personPopularListAdapter);
-        binding.personPopularAllBtn.setOnClickListener(v -> initActivityList("person"));
     }
 
 

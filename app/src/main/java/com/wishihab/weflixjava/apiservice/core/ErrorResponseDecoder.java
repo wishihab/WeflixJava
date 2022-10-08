@@ -20,10 +20,6 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Response;
 
-/** Decode error message from http response, if available.
- *
- * @author Bangun K
- */
 public class ErrorResponseDecoder {
 
 
@@ -31,14 +27,6 @@ public class ErrorResponseDecoder {
     private Application context;
     private Map<String,String> codeMap;
 
-    /** Create error message decoder instance.
-     *
-     * @param context
-     *      Use application context to prevent activity context leak.
-     * @param gson
-     * @param codeMap
-     *      Code map translating from error code to error message.
-     */
     public ErrorResponseDecoder(Application context, Gson gson, Map<String,String> codeMap) {
         this.gson = gson;
         this.context = context;
@@ -49,13 +37,6 @@ public class ErrorResponseDecoder {
         this(context, null, codeMap);
     }
 
-    /** Get appropriate message from retrofit exception.
-     *  Must be used from inside {@link retrofit2.Callback#onFailure(Call, Throwable)}.
-     *  Must NOT used to get message from common exception.
-     *
-     * @param throwable
-     * @return
-     */
     public String getMessageFromRetrofitException(Throwable throwable) {
 
 
@@ -91,12 +72,6 @@ public class ErrorResponseDecoder {
         return result;
     }
 
-    /** Get error message based on response body.
-     *
-     * @param response
-     *      Reponse to decode.
-     * @return
-     */
     public String getErrorMessage(Response<?> response) {
 
         ErrorResponse error = decode(response);
@@ -161,67 +136,6 @@ public class ErrorResponseDecoder {
         }
 
         return userMessage;
-    }
-
-
-    public String getErrorMetaMessage(Response<?> response) {
-
-        ErrorResponse error = decode(response);
-        String message = null;
-        String code = null;
-        String userMessage;
-
-
-        if (error != null && error.getErrorMeta() != null) {
-            message = error.getErrorMeta().getMessage();
-            code = error.getErrorMeta().getCode();
-        }
-
-        // Get from code map if available
-        userMessage = codeMap.get(code);
-
-        // if not available in code, get from message field
-        if (userMessage == null) {
-            userMessage = message;
-        }
-
-        // otherwise just use generic error message (with http code)
-        //
-        if (userMessage == null) {
-            userMessage = "Maaf, terjadi kesalahan. Silakan coba beberapa saat lagi " + response.code();
-        }
-
-        return userMessage;
-    }
-
-    public ErrorMeta getErrorMeta(Response<?> response) {
-
-        ErrorResponse error = decode(response);
-        String message = null;
-        String code = null;
-        String userMessage;
-
-
-        if (error != null && error.getErrorMeta() != null) {
-            message = error.getErrorMeta().getMessage();
-            code = error.getErrorMeta().getCode();
-        }
-
-        // Get from code map if available
-        userMessage = codeMap.get(code);
-
-        // if not available in code, get from message field
-        if (userMessage == null) {
-            userMessage = message;
-        }
-
-        // otherwise just use generic error message (with http code)
-        //
-        if (userMessage == null) {
-            userMessage = "Maaf, terjadi kesalahan. Silakan coba beberapa saat lagi " + response.code();
-        }
-
-        return error.getErrorMeta();
     }
 
     @Nullable

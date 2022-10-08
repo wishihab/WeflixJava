@@ -21,6 +21,14 @@ public class WeflixListActivity extends AppCompatActivity {
 
     private ActivityListMainBinding binding;
 
+    @Override
+    public void onBackPressed(){
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            finish();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,7 +71,7 @@ public class WeflixListActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         WeflixListMainFragment fragment = (WeflixListMainFragment) manager.findFragmentByTag(TAG_MAIN_LIST);
         if(fragment == null){
-            fragment = WeflixListMainFragment.newInstance(type,"");
+            fragment = WeflixListMainFragment.newInstance(type);
             manager.beginTransaction()
                     .replace(R.id.content_view, fragment, TAG_MAIN_LIST)
                     .addToBackStack(TAG_MAIN_LIST)
