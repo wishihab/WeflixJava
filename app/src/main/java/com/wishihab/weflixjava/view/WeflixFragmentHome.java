@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wishihab.weflixjava.R;
 import com.wishihab.weflixjava.WeflixDetailActivity;
 import com.wishihab.weflixjava.WeflixListActivity;
 import com.wishihab.weflixjava.adapter.general.movie.MoviePopularListAdapter;
@@ -110,10 +111,10 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         binding.switcher.setDisplayedChild(0);
         binding.movieHandler.setVisibility(View.GONE);
         moviePopularListAdapter = new MoviePopularListAdapter(data, ((list, position) -> {
-            initActivityDetail("movies", "", list.getId(), list.getOriginalTitle(), "");
+            initActivityDetail(getString(R.string.movies), "", list.getId(), list.getOriginalTitle(), "");
         }));
         binding.moviePopularList.setAdapter(moviePopularListAdapter);
-        binding.moviePopularAllBtn.setOnClickListener(v -> initActivityList("movies"));
+        binding.moviePopularAllBtn.setOnClickListener(v -> initActivityList(getString(R.string.movies)));
     }
 
     @Override
@@ -121,7 +122,7 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         binding.switcher.setDisplayedChild(0);
         binding.tvHandler.setVisibility(View.GONE);
         TvPopularListAdapter tvPopularListAdapter = new TvPopularListAdapter(data, ((list, position) -> {
-            initActivityDetail("tv", "", "", "", list.getId());
+            initActivityDetail(getString(R.string.tv), "", "", "", list.getId());
         }));
         binding.tvPopularList.setAdapter(tvPopularListAdapter);
     }
@@ -131,7 +132,7 @@ public class WeflixFragmentHome extends Fragment implements MovieView, TvView, P
         binding.switcher.setDisplayedChild(0);
         binding.personHandler.setVisibility(View.GONE);
         PersonPopularListAdapter personPopularListAdapter= new PersonPopularListAdapter(data, ((list, position) -> {
-            initActivityDetail("person", list.getId(), "", "", "");
+            initActivityDetail(getString(R.string.person), list.getId(), "", "", "");
         }));
         binding.personPopularList.setAdapter(personPopularListAdapter);
     }

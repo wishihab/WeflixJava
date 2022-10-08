@@ -27,4 +27,13 @@
     <string name="netflix_tag_line">Stories move us.\nThey make us feel more emotion, see new perspectives,\nand bring us closer to each other.</string>
     <string name="title_activity_youtube_player">YoutubePlayerActivity</string>
     <string name="error_message">Terjadi kesalahan, silahkan coba beberapa saat lagi</string>
+
+    <string name="youtube_video_url">https://www.youtube.com/watch?v=</string>
+    <string name="image_mdb_url">https://image.tmdb.org/t/p/w500/</string>
+    <string name="youtube_query_trailer">Trailer </string>
+    <string name="text_load_more_video">Load more movie</string>
+
+    <string name="movies">movies</string>
+    <string name="tv">tv</string>
+    <string name="person">person</string>
 </resources>

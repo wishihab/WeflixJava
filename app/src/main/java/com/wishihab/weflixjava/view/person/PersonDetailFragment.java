@@ -19,15 +19,8 @@ import com.wishihab.weflixjava.util.core.ImageUtil;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModel;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModelImpl;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PersonDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PersonDetailFragment extends Fragment implements PersonDetailView{
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
 
     // TODO: Rename and change types of parameters
@@ -72,7 +65,6 @@ public class PersonDetailFragment extends Fragment implements PersonDetailView{
 
     @Override
     public void showDataPersonDetail(PersonDetailResult data) {
-        Log.e("data result " , "data " + data);
         String fullProfile = "https://image.tmdb.org/t/p/w500/" + data.getProfilePath();
         ImageUtil.loadImage(binding.imageView, fullProfile, R.drawable.dummy_poster);
         binding.textView.setText(data.getName());

@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wishihab.weflixjava.R;
 import com.wishihab.weflixjava.WeflixDetailActivity;
 import com.wishihab.weflixjava.adapter.general.movie.MovieTabListAdapter;
 import com.wishihab.weflixjava.databinding.FragmentMovieListTabBinding;
@@ -68,7 +68,7 @@ public class MovieListTabFragment extends Fragment implements MovieView{
         progressDialog = new ProgressDialog(requireActivity());
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setMessage("Load more movie");
+        progressDialog.setMessage(getString(R.string.text_load_more_video));
 
         ViewModelProvider provider = new ViewModelProvider(this);
         viewModel = provider.get(WeflixViewModelImpl.class);

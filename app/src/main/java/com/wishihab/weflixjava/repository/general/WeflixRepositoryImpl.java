@@ -1,7 +1,6 @@
 package com.wishihab.weflixjava.repository.general;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -185,13 +184,11 @@ public class WeflixRepositoryImpl implements WeflixRepository {
 
             @Override
             protected void onHttpResponseFailed(Call<PersonDetailResult> call, Response<PersonDetailResult> response) {
-                Log.e("value " , "result " + response.message());
                 listener.onError(responseDecoder.getErrorMessage(response));
             }
 
             @Override
             public void onFailure(Call<PersonDetailResult> call, Throwable t) {
-                Log.e("value " , "result " + t.getMessage());
                 listener.onError(responseDecoder.getMessageFromRetrofitException(t));
             }
         });

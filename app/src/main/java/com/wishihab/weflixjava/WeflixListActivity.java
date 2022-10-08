@@ -7,12 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.WindowCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.wishihab.weflixjava.databinding.ActivityListMainBinding;
-import com.wishihab.weflixjava.databinding.ActivityMainBinding;
-import com.wishihab.weflixjava.view.WeflixFragmentHome;
 import com.wishihab.weflixjava.view.WeflixListMainFragment;
 
 public class WeflixListActivity extends AppCompatActivity {

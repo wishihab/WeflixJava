@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import com.wishihab.weflixjava.BaseUrl;
 import com.wishihab.weflixjava.R;
 import com.wishihab.weflixjava.adapter.general.movie.MovieReviewListAdapter;
 import com.wishihab.weflixjava.databinding.FragmentWeflixDetailBinding;
@@ -29,16 +30,12 @@ import java.util.List;
 
 public class MovieDetailFragment extends Fragment implements MovieDetailView, MovieReviewView, YoutubeQueryView {
 
-    private static final String ARG_YOUTUBE_ID = "youtube_id";
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private FragmentWeflixDetailBinding binding;
     private WeflixViewModel weflixViewModel;
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -84,8 +81,8 @@ public class MovieDetailFragment extends Fragment implements MovieDetailView, Mo
         weflixViewModel.getYoutubeIdViewState().observe(getViewLifecycleOwner(), this::apply);
         weflixViewModel.doGetMovieDetail(mParam1);
         weflixViewModel.doGetMovieReview(mParam1);
-        String nameTrailer = "Trailer " + mParam2;
-        weflixViewModel.doGetYoutubeId(nameTrailer, "AIzaSyBNggAqYJVmKn-p7D_DrlWyX3Rc24fv0uI");
+        String nameTrailer = R.string.youtube_query_trailer + mParam2;
+        weflixViewModel.doGetYoutubeId(nameTrailer, BaseUrl.KY);
 
     }
 

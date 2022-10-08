@@ -68,7 +68,7 @@ public class WeflixListMainFragment extends Fragment {
         binding.viewPagerList.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         binding.viewPagerList.setAdapter(myAdapter);
 
-        binding.tabLayoutList.addTab(binding.tabLayoutList.newTab().setText("Movies"));
+        binding.tabLayoutList.addTab(binding.tabLayoutList.newTab().setText(R.string.tab_movie_name));
         binding.tabLayoutList.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
