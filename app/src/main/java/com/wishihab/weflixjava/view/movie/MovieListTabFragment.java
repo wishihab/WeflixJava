@@ -140,6 +140,7 @@ public class MovieListTabFragment extends Fragment implements MovieView{
 
     private void initActivityDetail(String movieId, String movieTitle) {
         Intent intent = WeflixDetailActivity.newIntent(requireActivity());
+        intent.putExtra("detail_type", "movies");
         intent.putExtra(ARG_MOVIE_ID, movieId);
         intent.putExtra(ARG_MOVIE_TITLE, movieTitle);
         startActivity(intent);

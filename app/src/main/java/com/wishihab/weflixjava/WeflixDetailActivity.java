@@ -14,9 +14,8 @@ import com.wishihab.weflixjava.databinding.ActivityWeflixDetailBinding;
 import com.wishihab.weflixjava.view.movie.MovieDetailFragment;
 import com.wishihab.weflixjava.view.person.PersonDetailFragment;
 import com.wishihab.weflixjava.view.tv.TvDetailFragment;
-import com.wishihab.weflixjava.view.youtube.YoutubeModuleFragment;
 
-public class WeflixDetailActivity extends AppCompatActivity implements YoutubeModuleFragment.Listener {
+public class WeflixDetailActivity extends AppCompatActivity{
     private static final String TAG_DETAIL = "weflix_movie_detail";
     private static final String ARG_DETAIL_TYPE = "detail_type";
     private static final String ARG_MOVIE_ID = "movie_id";
@@ -101,9 +100,5 @@ public class WeflixDetailActivity extends AppCompatActivity implements YoutubeMo
                     .replace(R.id.content_view, tvDetailFragment, TAG_DETAIL)
                     .commit();
         }
-    }
-
-    @Override
-    public void onDismissedCall() {
     }
 }

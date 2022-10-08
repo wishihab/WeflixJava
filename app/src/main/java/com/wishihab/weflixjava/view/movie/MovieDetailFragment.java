@@ -1,12 +1,10 @@
 package com.wishihab.weflixjava.view.movie;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -17,14 +15,12 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.wishihab.weflixjava.R;
-import com.wishihab.weflixjava.YoutubePlayerActivity;
 import com.wishihab.weflixjava.adapter.general.movie.MovieReviewListAdapter;
 import com.wishihab.weflixjava.databinding.FragmentWeflixDetailBinding;
 import com.wishihab.weflixjava.model.general.YoutubeQueryResult;
 import com.wishihab.weflixjava.model.general.movie.MovieReviewResult;
 import com.wishihab.weflixjava.model.general.movie.detail.MovieDetailResponse;
 import com.wishihab.weflixjava.util.core.ImageUtil;
-import com.wishihab.weflixjava.view.youtube.YoutubeModuleFragment;
 import com.wishihab.weflixjava.view.youtube.YoutubeQueryView;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModel;
 import com.wishihab.weflixjava.viewmodel.WeflixViewModelImpl;
@@ -154,10 +150,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailView, Mo
             //opsi 1 load webview
             binding.movieBackdrop.setOnClickListener(v->openWebView(data.get(0).getVideoId()));
             binding.youtubePlayButton.setOnClickListener(v->openWebView(data.get(0).getVideoId()));
-            //opsi 2 load buttonmodule?
-            //binding.youtubePlayButton.setOnClickListener(v-> onYoutubeClicked(data.get(0).getVideoId()));
-            //opsi 3 load activity/fragment youtube?
-            //binding.youtubePlayButton.setOnClickListener(v-> initActivityYoutube(data.get(0).getVideoId()));
         }
     }
 
@@ -171,25 +163,10 @@ public class MovieDetailFragment extends Fragment implements MovieDetailView, Mo
 
     }
 
-
     private void openWebView(String youtubeId){
         WebView youtubeWeb = (WebView) getView().findViewById(R.id.webview_youtube);
         String fullUrl = "https://www.youtube.com/watch?v=" + youtubeId;
         youtubeWeb.loadUrl(fullUrl);
     }
 
-    private void onYoutubeClicked(String youtubeId){
-        FragmentManager manager = getParentFragmentManager();
-        YoutubeModuleFragment fragment = (YoutubeModuleFragment) manager.findFragmentByTag("youtube_module_tag");
-        if(fragment == null){
-            fragment = YoutubeModuleFragment.newInstance(youtubeId);
-            fragment.show(manager, "youtube_module_tag");
-        }
-    }
-
-    private void initActivityYoutube(String youtubeId) {
-        Intent intent = YoutubePlayerActivity.newIntent(requireActivity());
-        intent.putExtra(ARG_YOUTUBE_ID, youtubeId);
-        startActivity(intent);
-    }
 }
