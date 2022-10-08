@@ -1,5 +1,6 @@
 package com.wishihab.weflixjava.view.movie;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -31,7 +32,7 @@ public class MovieListTabFragment extends Fragment implements MovieView{
     private static final String ARG_MOVIE_ID = "movie_id";
     private static final String ARG_MOVIE_TITLE = "movie_title";
 
-
+    private ProgressDialog progressDialog;
     private FragmentMovieListTabBinding binding;
     private WeflixViewModel viewModel;
     private Integer page = 2;
@@ -64,6 +65,11 @@ public class MovieListTabFragment extends Fragment implements MovieView{
         super.onViewCreated(view, savedInstanceState);
         dataLocal = new ArrayList<>();
 
+        progressDialog = new ProgressDialog(requireActivity());
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setMessage("Load more movie");
+
         ViewModelProvider provider = new ViewModelProvider(this);
         viewModel = provider.get(WeflixViewModelImpl.class);
         binding.swipeRefreshView.setOnRefreshListener(() -> viewModel.doGetMoviePage(page));
@@ -75,6 +81,9 @@ public class MovieListTabFragment extends Fragment implements MovieView{
 
     @Override
     public void showData(List<MoviePopularResult> data) {
+        if(!isLoading){
+            progressDialog.dismiss();
+        }
         for(int i=0; i<data.size(); i++){
             dataLocal.add(data.get(i));
         }
@@ -109,14 +118,15 @@ public class MovieListTabFragment extends Fragment implements MovieView{
                 if(!isLoading){
                     if(linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == dataLocal.size() -1){
                         isLoading = true;
-                        loadMoreMovie(data);
+                        loadMoreMovie();
                     }
                 }
             }
         });
     }
 
-    private void loadMoreMovie(List<MoviePopularResult> data){
+    private void loadMoreMovie(){
+        progressDialog.show();
         page++;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
